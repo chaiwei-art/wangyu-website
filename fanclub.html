@@ -3,365 +3,538 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>邓滕丽全球粉丝后援会</title>
+<title>邓滕丽 · 全球粉丝后援会 OFFICIAL</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+  :root {
+    --ink: #1b1b2f;
+    --ink-soft: #2d2d44;
+    --rose: #e8b4b8;
+    --rose-deep: #c98b90;
+    --gold: #d4af7a;
+    --cream: #faf7f2;
+    --muted: #8a8a9e;
+    --serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    --sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
-    background: linear-gradient(160deg, #ffd6e0, #ffc8ff, #b8d8ff, #e0f7fa);
-    min-height: 100vh;
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
     overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  .sparkle {
-    position: fixed;
-    font-size: 30px;
-    opacity: 0.35;
-    animation: twinkle 3s infinite ease-in-out;
-    user-select: none;
-    pointer-events: none;
-    z-index: 0;
+  ::selection { background: var(--rose); color: var(--ink); }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--rose-deep), var(--gold)); border-radius: 4px; }
+
+  /* ---------- loader ---------- */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--ink);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity .8s ease, visibility .8s ease;
   }
-  @keyframes twinkle {
-    0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.2; }
-    50% { transform: scale(1.2) rotate(40deg); opacity: 0.5; }
+  #loader.hide { opacity: 0; visibility: hidden; }
+  .loader-ring {
+    width: 70px; height: 70px; border-radius: 50%;
+    border: 2px solid rgba(232,180,184,.2);
+    border-top-color: var(--rose);
+    animation: spin 1s linear infinite;
   }
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    text-align: center;
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loader-text { margin-top: 22px; color: var(--cream); font-size: 13px; letter-spacing: 6px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 6vw;
+    transition: all .4s ease;
   }
-  .top-banner {
-    background: rgba(255,255,255,0.9);
-    border-radius: 60px;
-    padding: 10px 20px;
-    display: inline-block;
-    margin-bottom: 25px;
-    font-size: 18px;
-    color: #d6336c;
-    border: 3px solid #ff9ecb;
-    letter-spacing: 2px;
+  nav.scrolled {
+    padding: 12px 6vw;
+    background: rgba(27,27,47,.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 4px 30px rgba(0,0,0,.15);
   }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 3px; text-decoration: none;
+  }
+  .brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 14px var(--rose); }
+  .nav-links { display: flex; gap: 38px; }
+  .nav-links a {
+    color: rgba(255,255,255,.85); text-decoration: none; font-size: 14px; letter-spacing: 2px;
+    position: relative; padding: 4px 0; transition: color .3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px;
+    background: var(--rose); transition: width .35s ease;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 2px;
+    border: 1px solid rgba(255,255,255,.4); padding: 8px 20px; border-radius: 40px;
+    transition: all .3s;
+  }
+  .nav-cta:hover { background: var(--rose); border-color: var(--rose); color: var(--ink); }
+
+  /* ---------- hero ---------- */
   .hero {
-    background: rgba(255,255,255,0.92);
-    border-radius: 40px;
-    padding: 50px 30px;
-    box-shadow: 0 20px 60px rgba(214,51,108,0.2);
-    margin-bottom: 30px;
-    border: 6px solid #ff9ecb;
-    position: relative;
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center;
+    background: var(--ink);
     overflow: hidden;
   }
-  .hero::before {
-    content: '✨';
-    position: absolute;
-    font-size: 50px;
-    top: 15px; left: 30px;
-    animation: twinkle 2s infinite;
+  .hero-bg {
+    position: absolute; inset: -5%;
+    background: url('fanclub-photos/4b0842f642676ff5269a12eee5bf6260.jpg') center 30%/cover no-repeat;
+    opacity: .35;
+    animation: heroZoom 18s ease-in-out infinite alternate;
+    filter: saturate(1.05);
   }
+  @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.12); } }
   .hero::after {
-    content: '✨';
-    position: absolute;
-    font-size: 40px;
-    bottom: 15px; right: 30px;
-    animation: twinkle 2.5s infinite;
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(27,27,47,.7), rgba(27,27,47,.2) 40%, rgba(27,27,47,.95)),
+      radial-gradient(1200px 500px at 80% -10%, rgba(212,175,122,.18), transparent);
   }
-  .avatar {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff9ecb, #b8d8ff);
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 90px;
-    box-shadow: 0 10px 30px rgba(214,51,108,0.3);
-    animation: glow 3s infinite;
-    user-select: none;
+  .orb {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: .4; z-index: 1;
+    animation: orbFloat 14s ease-in-out infinite alternate;
   }
-  @keyframes glow {
-    0%, 100% { box-shadow: 0 10px 30px rgba(214,51,108,0.3); transform: scale(1); }
-    50% { box-shadow: 0 10px 50px rgba(214,51,108,0.6); transform: scale(1.05); }
+  .orb.one { width: 420px; height: 420px; background: rgba(201,139,144,.55); top: -80px; right: -60px; }
+  .orb.two { width: 340px; height: 340px; background: rgba(212,175,122,.45); bottom: -60px; left: -40px; animation-delay: -7s; }
+  @keyframes orbFloat { from { transform: translateY(0); } to { transform: translateY(40px); } }
+  .hero-inner {
+    position: relative; z-index: 2;
+    padding: 0 6vw; width: 100%;
+    display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 60px;
   }
-  h1 {
-    font-size: 50px;
-    background: linear-gradient(90deg, #d6336c, #ff6b9d, #a06cd5, #5e9bff, #d6336c);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rainbow 4s linear infinite;
+  .hero-kicker {
+    color: var(--rose); font-size: 13px; letter-spacing: 8px; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 14px;
   }
-  @keyframes rainbow { to { background-position: 200% center; } }
-  .slogan {
-    font-size: 24px;
-    color: #a06cd5;
-    margin: 12px 0 20px;
-    font-weight: bold;
+  .hero-kicker::before { content: ''; width: 46px; height: 1px; background: var(--rose); }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(48px, 7vw, 96px); line-height: 1.15; color: #fff;
+    letter-spacing: 4px;
   }
+  .hero h1 .en {
+    display: block; font-family: var(--sans); font-weight: 300;
+    font-size: clamp(14px, 1.6vw, 20px); letter-spacing: 10px; color: var(--rose);
+    margin-bottom: 14px;
+  }
+  .hero-sub {
+    margin: 28px 0 40px; color: rgba(255,255,255,.75); font-size: 17px; max-width: 460px; line-height: 2;
+  }
+  .hero-actions { display: flex; gap: 18px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    text-decoration: none; font-size: 15px; letter-spacing: 3px;
+    padding: 15px 34px; border-radius: 50px; transition: all .35s ease;
+    cursor: pointer; border: none; font-family: var(--sans);
+  }
+  .btn-solid { background: linear-gradient(135deg, var(--rose), var(--rose-deep)); color: var(--ink); box-shadow: 0 10px 30px rgba(232,180,184,.35); }
+  .btn-solid:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(232,180,184,.5); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,.45); color: #fff; background: transparent; }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); transform: translateY(-3px); }
+  .hero-portrait {
+    position: relative; justify-self: end;
+    width: min(360px, 38vw);
+    perspective: 1000px;
+  }
+  .portrait-frame {
+    position: relative; border-radius: 18px; overflow: hidden;
+    aspect-ratio: 3/4;
+    transform: rotate(3deg);
+    box-shadow: 0 40px 80px rgba(0,0,0,.5);
+    border: 1px solid rgba(255,255,255,.15);
+    transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .portrait-frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.05); }
+  .portrait-frame:hover { transform: rotate(0deg) scale(1.02); }
+  .portrait-frame::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(200deg, rgba(232,180,184,.18), transparent 55%);
+  }
+  .portrait-tag {
+    position: absolute; z-index: 3; font-size: 11px; letter-spacing: 3px;
+    color: var(--ink); background: var(--cream); padding: 8px 14px; border-radius: 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  }
+  .portrait-tag.t1 { top: 18px; left: -30px; transform: rotate(-6deg); }
+  .portrait-tag.t2 { bottom: 18px; right: -24px; transform: rotate(4deg); background: var(--gold); }
+  .scroll-hint {
+    position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,.55); font-size: 11px; letter-spacing: 5px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .scroll-hint .line { width: 1px; height: 44px; background: linear-gradient(var(--rose), transparent); animation: drip 1.8s ease-in-out infinite; }
+  @keyframes drip { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); } 100% { transform: scaleY(0); transform-origin: top; } }
+
+  /* ---------- marquee ---------- */
+  .marquee {
+    background: var(--ink-soft); color: var(--rose);
+    overflow: hidden; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06);
+    white-space: nowrap;
+  }
+  .marquee-track { display: inline-block; animation: marquee 26s linear infinite; }
+  .marquee span { font-size: 13px; letter-spacing: 6px; margin: 0 28px; color: rgba(232,180,184,.8); }
+  .marquee span b { color: #fff; font-weight: 400; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ---------- sections ---------- */
+  section { padding: 120px 6vw; }
+  .sec-head { text-align: center; margin-bottom: 70px; }
+  .sec-kicker { color: var(--rose-deep); font-size: 12px; letter-spacing: 8px; margin-bottom: 16px; }
+  .sec-title {
+    font-family: var(--serif); font-size: clamp(30px, 4.4vw, 52px); letter-spacing: 4px;
+  }
+  .sec-title .en { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: 6px; color: var(--muted); margin-top: 10px; font-weight: 300; }
+
+  /* stats */
   .stats {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin: 20px 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    background: #fff; border: 1px solid #eee8e0; border-radius: 24px; padding: 46px 30px;
+    box-shadow: 0 30px 60px rgba(27,27,47,.06);
+    margin-top: -60px; position: relative; z-index: 5;
   }
-  .stat {
-    background: #fff0f6;
-    border: 3px solid #ff9ecb;
-    border-radius: 20px;
-    padding: 12px 20px;
-    font-size: 18px;
-    color: #d6336c;
-  }
-  .stat b { font-size: 26px; }
+  .stat { text-align: center; }
+  .stat + .stat { border-left: 1px solid #f0ebe3; }
+  .stat .num { font-family: var(--serif); font-size: 44px; color: var(--ink); font-weight: 700; letter-spacing: 1px; }
+  .stat .num sup { font-size: 20px; color: var(--rose-deep); }
+  .stat .label { font-size: 13px; color: var(--muted); letter-spacing: 3px; margin-top: 8px; }
 
-  .card {
-    background: rgba(255,255,255,0.95);
-    border-radius: 30px;
-    padding: 30px 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
-    border: 4px solid #ffd6e0;
-    text-align: left;
+  /* about */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .about-visual { position: relative; }
+  .about-visual .main {
+    border-radius: 18px; overflow: hidden; aspect-ratio: 4/5; box-shadow: 0 40px 80px rgba(27,27,47,.18);
   }
-  .card h2 {
-    font-size: 28px;
-    margin-bottom: 15px;
-    color: #d6336c;
-    border-bottom: 4px dotted #ff9ecb;
-    padding-bottom: 8px;
+  .about-visual .main img { width: 100%; height: 100%; object-fit: cover; }
+  .about-visual .float {
+    position: absolute; width: 46%; border-radius: 14px; overflow: hidden;
+    border: 6px solid var(--cream); box-shadow: 0 24px 50px rgba(27,27,47,.22);
   }
-  .card ul { list-style: none; }
-  .card li {
-    font-size: 19px;
-    padding: 10px 0;
-    border-bottom: 2px dashed #f5e6ed;
-    line-height: 1.7;
-  }
-  .card li:last-child { border-bottom: none; }
+  .about-visual .float img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-visual .f1 { bottom: -34px; left: -34px; transform: rotate(-6deg); animation: bob 7s ease-in-out infinite; }
+  .about-visual .f2 { top: -34px; right: -34px; transform: rotate(5deg); animation: bob 8s ease-in-out infinite reverse; }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-14px) rotate(var(--r,0deg)); } }
+  .about-text h2 { font-family: var(--serif); font-size: clamp(26px, 3vw, 38px); letter-spacing: 2px; line-height: 1.5; margin-bottom: 24px; }
+  .about-text h2 .hl { color: var(--rose-deep); }
+  .about-text p { color: #4a4a5e; font-size: 16px; line-height: 2.1; margin-bottom: 16px; }
+  .about-text .sign { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-top: 24px; display: flex; align-items: center; gap: 12px; }
+  .about-text .sign::before { content: ''; width: 34px; height: 1px; background: var(--gold); }
 
-  .reason {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 20px;
-    padding: 13px 0;
-    border-bottom: 2px dashed #f5e6ed;
+  /* gallery */
+  .gallery-wrap { background: var(--ink); }
+  .gallery-wrap .sec-title { color: #fff; }
+  .gallery-wrap .sec-title .en { color: rgba(255,255,255,.4); }
+  .carousel { position: relative; max-width: 1200px; margin: 0 auto; }
+  .track {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 38%;
+    gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; padding: 10px 4px 40px;
   }
-  .reason:last-child { border-bottom: none; }
-  .reason .emoji { font-size: 34px; }
-  .reason b { color: #d6336c; }
+  .track::-webkit-scrollbar { display: none; }
+  .slide {
+    scroll-snap-align: center; position: relative; border-radius: 18px; overflow: hidden;
+    aspect-ratio: 3/4; cursor: zoom-in;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s;
+  }
+  .slide img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  .slide:hover img { transform: scale(1.06); }
+  .slide::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(27,27,47,.88));
+  }
+  .slide .cap {
+    position: absolute; left: 22px; right: 22px; bottom: 20px; z-index: 2; color: #fff;
+    font-size: 15px; letter-spacing: 2px;
+  }
+  .slide .cap small { display: block; font-size: 11px; letter-spacing: 4px; color: var(--rose); margin-bottom: 6px; text-transform: uppercase; }
+  .car-nav { display: flex; justify-content: center; gap: 14px; margin-top: 8px; }
+  .car-btn {
+    width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25);
+    background: transparent; color: #fff; font-size: 18px; cursor: pointer; transition: all .3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .car-btn:hover { background: var(--rose); border-color: var(--rose); color: var(--ink); }
 
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 18px;
-    margin-top: 10px;
+  /* lightbox */
+  #lightbox {
+    position: fixed; inset: 0; z-index: 2000; background: rgba(27,27,47,.95);
+    display: none; align-items: center; justify-content: center; padding: 4vw;
   }
-  .photo {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 4px solid white;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    transition: transform 0.2s;
-    background: #f9f9f9;
+  #lightbox.show { display: flex; }
+  #lightbox img { max-width: 92vw; max-height: 86vh; border-radius: 12px; box-shadow: 0 40px 100px rgba(0,0,0,.6); animation: zoomIn .4s ease; }
+  @keyframes zoomIn { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  #lightbox .lb-close {
+    position: absolute; top: 30px; right: 40px; color: #fff; font-size: 34px; cursor: pointer; background: none; border: none; line-height: 1;
   }
-  .photo:hover { transform: scale(1.05); z-index: 2; }
-  .photo img { width: 100%; height: 240px; object-fit: cover; display: block; }
-  .photo .caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(214,51,108,0.85));
-    color: white;
-    font-size: 16px;
-    padding: 20px 10px 8px;
-    text-align: center;
-  }
+  #lightbox .lb-cap { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); color: var(--rose); font-size: 15px; letter-spacing: 3px; }
 
-  .join-box {
-    background: linear-gradient(135deg, #ff9ecb, #a06cd5);
-    border-radius: 30px;
-    padding: 35px;
-    color: white;
-    text-align: center;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 40px rgba(160,108,213,0.4);
+  /* join */
+  .join {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; max-width: 1100px; margin: 0 auto;
   }
-  .join-box h2 { font-size: 30px; margin-bottom: 12px; }
-  .join-box p { font-size: 18px; margin-bottom: 20px; line-height: 1.7; }
-  .join-input {
-    width: 70%;
-    max-width: 300px;
-    padding: 12px 18px;
-    border: none;
-    border-radius: 30px;
-    font-size: 17px;
-    font-family: inherit;
-    margin-bottom: 15px;
-    outline: none;
+  .join h2 { font-family: var(--serif); font-size: clamp(28px, 3.4vw, 44px); letter-spacing: 3px; line-height: 1.5; margin-bottom: 22px; }
+  .join h2 .hl { color: var(--rose-deep); }
+  .join p { color: #4a4a5e; font-size: 16px; line-height: 2; margin-bottom: 30px; }
+  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; list-style: none; margin-bottom: 34px; }
+  .perks li {
+    background: #fff; border: 1px solid #eee8e0; border-radius: 14px; padding: 14px 16px;
+    font-size: 14px; color: var(--ink); display: flex; align-items: center; gap: 10px; box-shadow: 0 6px 18px rgba(27,27,47,.04);
   }
-  .button-big {
-    background: white;
-    color: #d6336c;
-    border: none;
-    font-size: 22px;
-    font-family: inherit;
-    padding: 14px 40px;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    transition: all 0.2s;
-    font-weight: bold;
+  .perks li .ck {
+    width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, var(--rose), var(--gold));
+    color: var(--ink); font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .button-big:hover { transform: scale(1.08); }
-  .button-big:active { transform: scale(0.92); }
+  .form-card {
+    background: #fff; border-radius: 24px; padding: 42px; box-shadow: 0 30px 70px rgba(27,27,47,.1);
+    border: 1px solid #eee8e0;
+  }
+  .form-card label { display: block; font-size: 12px; letter-spacing: 3px; color: var(--muted); margin-bottom: 8px; }
+  .form-card input {
+    width: 100%; border: 1px solid #e5ddd2; border-radius: 12px; padding: 15px 18px;
+    font-size: 16px; font-family: var(--sans); margin-bottom: 20px; transition: all .3s; background: #fdfbf8;
+  }
+  .form-card input:focus { outline: none; border-color: var(--rose-deep); box-shadow: 0 0 0 4px rgba(201,139,144,.12); background: #fff; }
+  .form-card .btn { width: 100%; justify-content: center; margin-top: 6px; }
+  .form-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 14px; letter-spacing: 1px; }
 
-  .fan-counter {
-    margin-top: 20px;
-    font-size: 20px;
-    background: rgba(255,255,255,0.25);
-    display: inline-block;
-    padding: 10px 25px;
-    border-radius: 30px;
+  /* footer */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,.6); padding: 70px 6vw 40px; text-align: center;
   }
-  .fan-counter b { font-size: 30px; }
+  footer .f-logo { font-size: 20px; letter-spacing: 8px; color: #fff; margin-bottom: 16px; font-family: var(--serif); }
+  footer .f-logo .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--rose); vertical-align: middle; margin: 0 8px; box-shadow: 0 0 12px var(--rose); }
+  footer .f-links { display: flex; justify-content: center; gap: 30px; margin: 26px 0; flex-wrap: wrap; }
+  footer .f-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: 13px; letter-spacing: 2px; transition: color .3s; }
+  footer .f-links a:hover { color: var(--rose); }
+  footer .f-copy { font-size: 12px; color: rgba(255,255,255,.35); letter-spacing: 2px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 26px; }
 
-  .footer {
-    margin-top: 30px;
-    color: #d6336c;
-    font-size: 16px;
-    padding-bottom: 30px;
-  }
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(44px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.d1 { transition-delay: .1s; }
+  .reveal.d2 { transition-delay: .2s; }
+  .reveal.d3 { transition-delay: .3s; }
 
-  #confetti-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
-  .confetti {
-    position: absolute;
-    top: -20px;
-    border-radius: 50%;
-    animation: fall linear infinite;
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; padding-top: 90px; text-align: center; }
+    .hero-kicker { justify-content: center; }
+    .hero-actions { justify-content: center; }
+    .hero-portrait { justify-self: center; width: min(300px, 70vw); }
+    .stats { grid-template-columns: 1fr 1fr; margin-top: 0; gap: 30px; }
+    .stat:nth-child(3) { border-left: none; }
+    .about-grid, .join { grid-template-columns: 1fr; gap: 60px; }
+    .about-visual .f1 { left: -10px; }
+    .about-visual .f2 { right: -10px; }
+    .track { grid-auto-columns: 70%; }
+    .nav-links { display: none; }
+    section { padding: 80px 6vw; }
   }
-  @keyframes fall {
-    to { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
-  }
-
-  .toast {
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #d6336c;
-    color: white;
-    padding: 15px 28px;
-    border-radius: 30px;
-    font-size: 18px;
-    z-index: 1000;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
 
-<div id="confetti-layer"></div>
+<div id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">LOADING · 邓滕丽</div>
+</div>
 
-<script>
-  const sparks = ['✨','💖','🌸','🌟','💜','🦋','🍑','💫'];
-  for (let i = 0; i < 20; i++) {
-    const e = document.createElement('div');
-    e.className = 'sparkle';
-    e.textContent = sparks[Math.floor(Math.random() * sparks.length)];
-    e.style.left = Math.random() * 100 + 'vw';
-    e.style.top = Math.random() * 100 + 'vh';
-    e.style.animationDelay = (Math.random() * 3) + 's';
-    e.style.fontSize = (20 + Math.random() * 30) + 'px';
-    document.body.appendChild(e);
-  }
-</script>
-
-<div class="container">
-
-  <div class="top-banner">💝 邓滕丽全球粉丝后援会 · 官方唯一指定安利站 💝</div>
-
-  <div class="hero">
-    <div class="avatar">🌸</div>
-    <h1>邓滕丽 · 人间小太阳</h1>
-    <div class="slogan">认识她，你的快乐值 +999 💫</div>
-    <div class="stats">
-      <div class="stat">💖 本会会员 <b>10086</b>+ 人</div>
-      <div class="stat">🌞 笑容治愈力 <b>MAX</b></div>
-      <div class="stat">⭐ 安利成功率 <b>99.9%</b></div>
-    </div>
+<nav id="nav">
+  <a class="brand" href="#top"><span class="dot"></span>邓滕丽后援会</a>
+  <div class="nav-links">
+    <a href="#about">ABOUT</a>
+    <a href="#gallery">GALLERY</a>
+    <a href="#join">JOIN</a>
+    <a href="#contact">CONTACT</a>
   </div>
+  <a class="nav-cta" href="#join">加入我们</a>
+</nav>
 
-  <div class="card">
-    <h2>💝 为什么要饭邓滕丽？</h2>
-    <div class="reason"><span class="emoji">☀️</span><div><b>自带小太阳体质</b> —— 她一出现，阴天都能给你照晴了。</div></div>
-    <div class="reason"><span class="emoji">🎧</span><div><b>快乐净化器</b> —— 烦恼跟她聊两句，直接原地蒸发。</div></div>
-    <div class="reason"><span class="emoji">🎬</span><div><b>故事感满分</b> —— 她的日常比连续剧精彩，还天天更新。</div></div>
-    <div class="reason"><span class="emoji">🍰</span><div><b>人间清醒吃货</b> —— 知道哪家好吃，跟着她干饭不踩雷。</div></div>
-    <div class="reason"><span class="emoji">💪</span><div><b>元气补给站</b> —— 看她一眼，满血复活，今天又是元气满满的一天。</div></div>
-    <div class="reason"><span class="emoji">📸</span><div><b>摄影灵感库</b> —— 她的照片张张氛围感拉满，学构图找她就对了。</div></div>
-  </div>
-
-  <div class="card">
-    <h2>📜 关于邓滕丽，你必须知道的 5 件事</h2>
-    <ul>
-      <li>1️⃣ 她是快乐的第一生产力，见到她的人都会忍不住嘴角上扬。</li>
-      <li>2️⃣ 自带氛围感，随手一拍都是大片，粉丝们亲切称她「镜头感女王」。</li>
-      <li>3️⃣ 干饭魂燃得熊熊的，跟她吃饭永远不会纠结「吃什么」。</li>
-      <li>4️⃣ 嘴上说随便，做事超认真，反差萌直接拉满。</li>
-      <li>5️⃣ 粉丝后援会口号：<b>「滕丽一出，快乐永驻！」</b></li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>🖼️ 邓滕丽の心动瞬间</h2>
-    <p style="font-size: 17px; margin-bottom: 15px; color: #a06cd5;">点击可放大，建议右键保存当壁纸（她知道了会开心一整天）</p>
-    <div class="gallery" id="gallery"></div>
-  </div>
-
-  <div class="card">
-    <h2>📢 入会福利一览</h2>
-    <ul>
-      <li>✅ 入会即送 <b>「每天快乐一点」</b> 终身套餐</li>
-      <li>✅ 解锁后援会专属暗号：<b>「滕丽今天也好棒」</b></li>
-      <li>✅ 会员日由邓滕丽亲自云陪聊（大概吧）</li>
-      <li>✅ 入会满 7 天，自动获得<b>「饭滕丽不后悔」</b>徽章</li>
-      <li>✅ 会费只要一块小饼干，先到先得 🍪</li>
-    </ul>
-  </div>
-
-  <div class="join-box">
-    <h2>🎟️ 现在加入邓滕丽粉丝后援会</h2>
-    <p>填个名字，你就是 10086+ 分之一。<br>入会暗号：<b>「我是滕丽的快乐加一」</b></p>
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="hero-inner">
     <div>
-      <input type="text" class="join-input" id="nameInput" placeholder="输入你的昵称，如：小太阳" maxlength="12">
+      <div class="hero-kicker">DENG TENGLI OFFICIAL FAN CLUB</div>
+      <h1><span class="en">人间小太阳 · 快乐永驻</span>邓滕丽</h1>
+      <p class="hero-sub">遇见邓滕丽，是这个世界给我们的温柔彩蛋。<br>她负责把光带到你面前，我们负责把爱传遍世界。</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#join">JOIN US &nbsp;·&nbsp; 入会</a>
+        <a class="btn btn-ghost" href="#gallery">看她发光 →</a>
+      </div>
     </div>
-    <button class="button-big" id="joinBtn">💖 我要入会！</button>
-    <div class="fan-counter">后援会会员已达 <b id="fanCount">10086</b> 人</div>
+    <div class="hero-portrait">
+      <div class="portrait-frame" data-tilt>
+        <img src="fanclub-photos/4b0842f642676ff5269a12eee5bf6260.jpg" alt="邓滕丽" onerror="this.closest('.portrait-frame').style.display='none'">
+      </div>
+      <div class="portrait-tag t1">✨ EST. 2026</div>
+      <div class="portrait-tag t2">#发光吧滕丽</div>
+    </div>
   </div>
+  <div class="scroll-hint"><span>SCROLL</span><span class="line"></span></div>
+</section>
 
-  <div class="footer">
-    🎀 邓滕丽全球粉丝后援会 · 安利部荣誉出品<br>
-    本会宗旨：把邓滕丽的好，安利给全宇宙 ✨
+<div class="marquee">
+  <div class="marquee-track">
+    <span><b>邓滕丽全球粉丝后援会</b> · OFFICIAL WEBSITE</span>
+    <span>遇见她，快乐 +999</span>
+    <span>滕丽一出，快乐永驻</span>
+    <span>粉丝会口号 · DENG TENGLI FOREVER</span>
+    <span>加入我们，一起发光</span>
+    <span><b>EST. 2026</b> · 官方唯一指定安利站</span>
+    <span>遇见她，快乐 +999</span>
+    <span>滕丽一出，快乐永驻</span>
+    <span>粉丝会口号 · DENG TENGLI FOREVER</span>
+    <span>加入我们，一起发光</span>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="stats" id="stats">
+  <div class="stat reveal"><div class="num"><span data-count="10086">0</span><sup>+</sup></div><div class="label">后援会会员</div></div>
+  <div class="stat reveal d1"><div class="num"><span data-count="999">0</span><sup>%</sup></div><div class="label">快乐治愈指数</div></div>
+  <div class="stat reveal d2"><div class="num"><span data-count="365">0</span><sup>天</sup></div><div class="label">天天都在发光</div></div>
+  <div class="stat reveal d3"><div class="num"><span data-count="1">0</span><sup>位</sup></div><div class="label">唯一的小太阳</div></div>
+</div>
+
+<section id="about">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">ABOUT</div>
+    <h2 class="sec-title">关于这位人间小太阳<span class="en">MEET DENG TENGLI</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="main"><img src="fanclub-photos/8dcdb5ab13ce964120efd8e2b062b8a2.jpg" alt="邓滕丽" onerror="this.closest('.main').style.background='#eee'"></div>
+      <div class="float f1" style="--r:-6deg"><img src="fanclub-photos/93d415326925adc6b59403812db5a7ce.jpg" alt="" onerror="this.closest('.float').style.display='none'"></div>
+      <div class="float f2" style="--r:5deg"><img src="fanclub-photos/c24d18b991533f787c511405b2a3b0a4.jpg" alt="" onerror="this.closest('.float').style.display='none'"></div>
+    </div>
+    <div class="about-text reveal d1">
+      <h2>她用笑容治愈世界，<br><span class="hl">我们用爱守护她。</span></h2>
+      <p>邓滕丽，被粉丝们称作「人间小太阳」。她身上有种与生俱来的感染力——只要她出现，再平淡的日子也会被照亮。</p>
+      <p>她是镜头前的氛围感女王，也是生活中的快乐制造机。不需要剧本，她的每一天都在认真发光。</p>
+      <div class="sign">—— 邓滕丽全球粉丝后援会</div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-wrap" id="gallery">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">GALLERY</div>
+    <h2 class="sec-title">心动瞬间<span class="en">MOMENTS THAT GLOW</span></h2>
+  </div>
+  <div class="carousel">
+    <div class="track" id="track"></div>
+    <div class="car-nav">
+      <button class="car-btn" id="prevBtn">←</button>
+      <button class="car-btn" id="nextBtn">→</button>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="join">
+    <div class="reveal">
+      <div class="sec-kicker">JOIN US</div>
+      <h2>加入后援会，<br>成为 <span class="hl">10086+ 分之一</span></h2>
+      <p>入会没有门槛，只差一颗喜欢邓滕丽的心。填写昵称，你就是这个温暖大家庭的一员。</p>
+      <ul class="perks">
+        <li><span class="ck">✓</span>入会即送「每天快乐一点」套餐</li>
+        <li><span class="ck">✓</span>解锁专属暗号「滕丽今天也好棒」</li>
+        <li><span class="ck">✓</span>会员日云陪聊 · 先到先得</li>
+        <li><span class="ck">✓</span>满 7 天自动颁发「饭滕丽不后悔」徽章</li>
+      </ul>
+      <p style="margin-bottom:0;">会费只要一块小饼干 🍪 先到先得。</p>
+    </div>
+    <div class="form-card reveal d1">
+      <label for="name">你的昵称</label>
+      <input type="text" id="name" maxlength="12" placeholder="输入昵称，如：小太阳">
+      <label for="slogan">入会暗号（选填）</label>
+      <input type="text" id="slogan" maxlength="20" placeholder="我是滕丽的快乐加一">
+      <button class="btn btn-solid" id="joinBtn">✦ 正式入会</button>
+      <div class="form-note">已加入 <span id="fanCount">10086</span>+ 位会员 · 就差你啦</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="f-logo">邓滕丽<span class="dot"></span>全球粉丝后援会</div>
+  <p style="font-size:13px;letter-spacing:4px;color:var(--rose);">DENG TENGLI OFFICIAL FAN CLUB</p>
+  <div class="f-links">
+    <a href="#about">关于她</a>
+    <a href="#gallery">心动瞬间</a>
+    <a href="#join">加入我们</a>
+    <a href="#top">回到顶部</a>
+  </div>
+  <div class="f-copy">© 2026 邓滕丽全球粉丝后援会 · 安利部荣誉出品 · 本会宗旨：把她的好，安利给全宇宙</div>
+</footer>
+
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">×</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
 
 <script>
-  const gallery = document.getElementById('gallery');
-  const photoFiles = [
+  /* loader */
+  window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hide'), 600); });
+
+  /* nav scroll */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* reveal on scroll */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* count up */
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.count;
+      const dur = 1600, t0 = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
+
+  /* portrait tilt */
+  const tilt = document.querySelector('[data-tilt]');
+  if (tilt) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      tilt.style.transform = `rotate(${x * 6}deg)`;
+    });
+    document.querySelector('.hero').addEventListener('mouseleave', () => { tilt.style.transform = 'rotate(0deg)'; });
+  }
+
+  /* gallery */
+  const files = [
     '03919537c9827d4f483b5a24d4ebca0a.jpg','160a7e69a0b022c5f7724ec4dafa23c7.jpg',
     '203bd7d56987c837562b3efffa04b059.jpg','2e20a07ac41dd92cab1d0290f8f2d0e5.jpg',
     '3206e325dc9dbb54c951e2f78212b9d3.jpg','3df34290bc33e375b8be1afbb5b4553d.jpg',
@@ -374,90 +547,78 @@
     'e9f2c0271cf39e208f32c2217c4c6bc2.jpg','f06e0a921e5cc94cd1216e383f3ee658.jpg',
     'f24d067c580af7a2a481ed0756992e9e.jpg','fb891cd614b97864e4332cba728efca3.jpg'
   ];
-  const captions = [
-    '✨ 人间小太阳上线',
-    '💖 今日份心动',
-    '🌸 氛围感拉满',
-    '🌟 她一笑，天都晴了',
-    '🎀 镜头感女王本人',
-    '💜 美貌与可爱并存',
-    '🍑 元气满满的一天',
-    '🦋 逆光也挡不住的美',
-    '💫 像是从漫画里走出来的',
-    '✨ 越看越好看系列',
-    '💝 传说中的快乐源泉',
-    '🌞 阳光正好，她正好',
-    '🎬 每一帧都是壁纸',
-    '🥰 见到她心情自动变好',
-    '🌟 女明星日常营业',
-    '💖 收藏级心动画面',
-    '🌸 温柔本身的样子',
-    '✨ 连风都在夸她好看',
-    '🍰 甜妹本妹',
-    '🎀 会发光的人',
-    '💜 快乐感染源',
-    '💫 绝美，无需多言',
+  const caps = [
+    '光落下来的地方','今日份心动','氛围感拉满','她一笑天就晴了',
+    '镜头感女王','美貌与可爱并存','元气满满','逆光也挡不住的美',
+    '漫画里走出来的','越看越好看','快乐源泉本泉','阳光正好她正好',
+    '每一帧都是壁纸','心情自动变好','女明星日常营业','收藏级心动画面',
+    '温柔本身的样子','连风都在夸她','甜妹本妹','会发光的人',
+    '快乐感染源','绝美，无需多言'
   ];
-  photoFiles.forEach(function(f, i) {
-    const div = document.createElement('div');
-    div.className = 'photo';
-    const img = document.createElement('img');
-    img.src = 'fanclub-photos/' + f;
-    img.alt = '邓滕丽心动瞬间';
-    img.loading = 'lazy';
-    img.onerror = function() { div.remove(); };
-    img.onclick = function() { window.open(img.src); };
-    const cap = document.createElement('div');
-    cap.className = 'caption';
-    cap.textContent = captions[i % captions.length];
-    div.appendChild(img);
-    div.appendChild(cap);
-    gallery.appendChild(div);
+  const track = document.getElementById('track');
+  files.forEach((f, i) => {
+    const s = document.createElement('div');
+    s.className = 'slide';
+    s.innerHTML = '<img src="fanclub-photos/' + f + '" alt="邓滕丽" loading="lazy" onerror="this.parentElement.remove()">'
+      + '<div class="cap"><small>MOMENT ' + String(i+1).padStart(2,'0') + '</small>' + caps[i] + '</div>';
+    s.addEventListener('click', () => openLightbox('fanclub-photos/' + f, caps[i]));
+    track.appendChild(s);
   });
 
-  const colors = ['#ff9ecb', '#ff6b9d', '#a06cd5', '#b8d8ff', '#ffd6e0', '#ffc8ff'];
-  const layer = document.getElementById('confetti-layer');
-  function burst(x, y) {
-    for (let i = 0; i < 50; i++) {
-      const c = document.createElement('div');
-      c.className = 'confetti';
-      const size = 6 + Math.random() * 10;
-      c.style.width = size + 'px';
-      c.style.height = size + 'px';
-      c.style.background = colors[Math.floor(Math.random() * colors.length)];
-      c.style.left = (x + (Math.random() - 0.5) * 300) + 'px';
-      c.style.top = (y - 20) + 'px';
-      c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-      c.style.animationDelay = (Math.random() * 0.4) + 's';
-      layer.appendChild(c);
-      setTimeout(() => c.remove(), 4500);
-    }
-  }
+  const prev = document.getElementById('prevBtn'), next = document.getElementById('nextBtn');
+  const step = () => document.querySelector('.track .slide').offsetWidth + 22;
+  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
 
+  /* lightbox */
+  const lb = document.getElementById('lightbox');
+  function openLightbox(src, cap) {
+    document.getElementById('lbImg').src = src;
+    document.getElementById('lbCap').textContent = cap;
+    lb.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() { lb.classList.remove('show'); document.body.style.overflow = ''; }
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* join */
   let fans = 10086;
-  const fanCount = document.getElementById('fanCount');
-  const toast = document.getElementById('toast');
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3500);
-  }
-
-  document.getElementById('joinBtn').addEventListener('click', function(e) {
+  const fanEl = document.getElementById('fanCount');
+  document.getElementById('joinBtn').addEventListener('click', function() {
+    const name = document.getElementById('name').value.trim() || '新晋会员';
     fans++;
-    fanCount.textContent = fans.toLocaleString();
-    const input = document.getElementById('nameInput');
-    const name = input.value.trim() || '新晋会员';
-    const btn = e.target;
-    const rect = btn.getBoundingClientRect();
-    burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
-    showToast('🎉 欢迎 ' + name + ' 加入邓滕丽粉丝后援会！快乐值 +999');
-    input.value = '';
-    if (fans % 50 === 0) {
-      showToast('🎊 热烈庆祝！后援会会员突破 ' + fans.toLocaleString() + ' 人，邓滕丽同学开心得转圈圈！');
-    }
+    fanEl.textContent = fans.toLocaleString();
+    const btn = this;
+    btn.textContent = '✓ 欢迎 ' + name + ' 入会！';
+    btn.style.background = 'linear-gradient(135deg, #06b06a, #3fbf7f)';
+    setTimeout(() => {
+      btn.textContent = '✦ 正式入会';
+      btn.style.background = '';
+    }, 2200);
+    confettiBurst(btn);
   });
-</script>
 
+  function confettiBurst(anchor) {
+    const r = anchor.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const colors = ['#e8b4b8','#d4af7a','#c98b90','#faf7f2','#1b1b2f'];
+    for (let i = 0; i < 46; i++) {
+      const c = document.createElement('div');
+      c.style.cssText = 'position:fixed;z-index:3000;pointer-events:none;left:0;top:0;width:8px;height:8px;border-radius:2px;background:' + colors[i%colors.length];
+      document.body.appendChild(c);
+      const ang = Math.random() * Math.PI * 2, sp = 120 + Math.random() * 260, vx = Math.cos(ang)*sp, vy = Math.sin(ang)*sp - 160;
+      c.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+      (function(elm, dx, dy, g) {
+        let t = 0;
+        (function anim(){
+          t += 16/1000;
+          elm.style.transform = 'translate(' + (cx + dx*t) + 'px,' + (cy + dy*t + g*t*t) + 'px) rotate(' + (t*400) + 'deg)';
+          if (t < 1.3) requestAnimationFrame(anim); else elm.remove();
+        })();
+      })(c, vx, vy, 420);
+    }
+  }
+</script>
 </body>
 </html>

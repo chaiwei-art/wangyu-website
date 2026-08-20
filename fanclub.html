@@ -95,7 +95,7 @@
   .hero { position: relative; min-height: 100vh; display: flex; align-items: center; background: #1b1b2f; overflow: hidden; }
   .hero-bg {
     position: absolute; inset: -5%;
-    background: url('fanclub-photos/4b0842f642676ff5269a12eee5bf6260.jpg') center 30%/cover no-repeat;
+    background: url('fanclub-photos/cover.jpg') center 30%/cover no-repeat;
     opacity: .35; animation: heroZoom 18s ease-in-out infinite alternate; filter: saturate(1.05);
   }
   @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.12); } }
@@ -341,7 +341,7 @@
     </div>
     <div class="hero-portrait">
       <div class="portrait-frame" data-tilt>
-        <img src="fanclub-photos/4b0842f642676ff5269a12eee5bf6260.jpg" alt="邓滕丽" onerror="this.closest('.portrait-frame').style.display='none'">
+        <img src="fanclub-photos/cover.jpg" alt="邓滕丽" onerror="this.closest('.portrait-frame').style.display='none'">
       </div>
       <div class="portrait-tag t1">✨ EST. 2026</div>
       <div class="portrait-tag t2">#发光吧滕丽</div>
@@ -838,7 +838,7 @@
     danmakuEl.appendChild(d);
     setTimeout(() => d.remove(), 15000);
   }
-  const dmGreetings = ['藤丽今天也好棒！','遇见你是我的幸运','小太阳冲鸭！','永远支持滕丽！','一起发光吧！','愿她天天开心！','快乐永驻！','藤丽来啦！','我们都在！','甜甜的滕丽！','加油小太阳！','此生不悔饭滕丽！'];
+  const dmGreetings = ['滕丽今天也好棒！','遇见你是我的幸运','小太阳冲鸭！','永远支持滕丽！','一起发光吧！','愿她天天开心！','快乐永驻！','滕丽来啦！','我们都在！','甜甜的滕丽！','加油小太阳！','此生不悔饭滕丽！'];
   document.getElementById('dmBtn').addEventListener('click', () => {
     for (let i = 0; i < 8; i++) setTimeout(() => spawnDanmaku(dmGreetings[Math.floor(Math.random() * dmGreetings.length)]), i * 350);
   });

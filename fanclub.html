@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邓滕丽全球粉丝后援会</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(160deg, #ffd6e0, #ffc8ff, #b8d8ff, #e0f7fa);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .sparkle {
+    position: fixed;
+    font-size: 30px;
+    opacity: 0.35;
+    animation: twinkle 3s infinite ease-in-out;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.2; }
+    50% { transform: scale(1.2) rotate(40deg); opacity: 0.5; }
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .top-banner {
+    background: rgba(255,255,255,0.9);
+    border-radius: 60px;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-bottom: 25px;
+    font-size: 18px;
+    color: #d6336c;
+    border: 3px solid #ff9ecb;
+    letter-spacing: 2px;
+  }
+  .hero {
+    background: rgba(255,255,255,0.92);
+    border-radius: 40px;
+    padding: 50px 30px;
+    box-shadow: 0 20px 60px rgba(214,51,108,0.2);
+    margin-bottom: 30px;
+    border: 6px solid #ff9ecb;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '✨';
+    position: absolute;
+    font-size: 50px;
+    top: 15px; left: 30px;
+    animation: twinkle 2s infinite;
+  }
+  .hero::after {
+    content: '✨';
+    position: absolute;
+    font-size: 40px;
+    bottom: 15px; right: 30px;
+    animation: twinkle 2.5s infinite;
+  }
+  .avatar {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff9ecb, #b8d8ff);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 90px;
+    box-shadow: 0 10px 30px rgba(214,51,108,0.3);
+    animation: glow 3s infinite;
+    user-select: none;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 10px 30px rgba(214,51,108,0.3); transform: scale(1); }
+    50% { box-shadow: 0 10px 50px rgba(214,51,108,0.6); transform: scale(1.05); }
+  }
+  h1 {
+    font-size: 50px;
+    background: linear-gradient(90deg, #d6336c, #ff6b9d, #a06cd5, #5e9bff, #d6336c);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 4s linear infinite;
+  }
+  @keyframes rainbow { to { background-position: 200% center; } }
+  .slogan {
+    font-size: 24px;
+    color: #a06cd5;
+    margin: 12px 0 20px;
+    font-weight: bold;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .stat {
+    background: #fff0f6;
+    border: 3px solid #ff9ecb;
+    border-radius: 20px;
+    padding: 12px 20px;
+    font-size: 18px;
+    color: #d6336c;
+  }
+  .stat b { font-size: 26px; }
+
+  .card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 30px;
+    padding: 30px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    border: 4px solid #ffd6e0;
+    text-align: left;
+  }
+  .card h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #d6336c;
+    border-bottom: 4px dotted #ff9ecb;
+    padding-bottom: 8px;
+  }
+  .card ul { list-style: none; }
+  .card li {
+    font-size: 19px;
+    padding: 10px 0;
+    border-bottom: 2px dashed #f5e6ed;
+    line-height: 1.7;
+  }
+  .card li:last-child { border-bottom: none; }
+
+  .reason {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+    padding: 13px 0;
+    border-bottom: 2px dashed #f5e6ed;
+  }
+  .reason:last-child { border-bottom: none; }
+  .reason .emoji { font-size: 34px; }
+  .reason b { color: #d6336c; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .photo {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+    background: #f9f9f9;
+  }
+  .photo:hover { transform: scale(1.05); z-index: 2; }
+  .photo img { width: 100%; height: 240px; object-fit: cover; display: block; }
+  .photo .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(214,51,108,0.85));
+    color: white;
+    font-size: 16px;
+    padding: 20px 10px 8px;
+    text-align: center;
+  }
+
+  .join-box {
+    background: linear-gradient(135deg, #ff9ecb, #a06cd5);
+    border-radius: 30px;
+    padding: 35px;
+    color: white;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 40px rgba(160,108,213,0.4);
+  }
+  .join-box h2 { font-size: 30px; margin-bottom: 12px; }
+  .join-box p { font-size: 18px; margin-bottom: 20px; line-height: 1.7; }
+  .join-input {
+    width: 70%;
+    max-width: 300px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: inherit;
+    margin-bottom: 15px;
+    outline: none;
+  }
+  .button-big {
+    background: white;
+    color: #d6336c;
+    border: none;
+    font-size: 22px;
+    font-family: inherit;
+    padding: 14px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+    font-weight: bold;
+  }
+  .button-big:hover { transform: scale(1.08); }
+  .button-big:active { transform: scale(0.92); }
+
+  .fan-counter {
+    margin-top: 20px;
+    font-size: 20px;
+    background: rgba(255,255,255,0.25);
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 30px;
+  }
+  .fan-counter b { font-size: 30px; }
+
+  .footer {
+    margin-top: 30px;
+    color: #d6336c;
+    font-size: 16px;
+    padding-bottom: 30px;
+  }
+
+  #confetti-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+  .confetti {
+    position: absolute;
+    top: -20px;
+    border-radius: 50%;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #d6336c;
+    color: white;
+    padding: 15px 28px;
+    border-radius: 30px;
+    font-size: 18px;
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div id="confetti-layer"></div>
+
+<script>
+  const sparks = ['✨','💖','🌸','🌟','💜','🦋','🍑','💫'];
+  for (let i = 0; i < 20; i++) {
+    const e = document.createElement('div');
+    e.className = 'sparkle';
+    e.textContent = sparks[Math.floor(Math.random() * sparks.length)];
+    e.style.left = Math.random() * 100 + 'vw';
+    e.style.top = Math.random() * 100 + 'vh';
+    e.style.animationDelay = (Math.random() * 3) + 's';
+    e.style.fontSize = (20 + Math.random() * 30) + 'px';
+    document.body.appendChild(e);
+  }
+</script>
+
+<div class="container">
+
+  <div class="top-banner">💝 邓滕丽全球粉丝后援会 · 官方唯一指定安利站 💝</div>
+
+  <div class="hero">
+    <div class="avatar">🌸</div>
+    <h1>邓滕丽 · 人间小太阳</h1>
+    <div class="slogan">认识她，你的快乐值 +999 💫</div>
+    <div class="stats">
+      <div class="stat">💖 本会会员 <b>10086</b>+ 人</div>
+      <div class="stat">🌞 笑容治愈力 <b>MAX</b></div>
+      <div class="stat">⭐ 安利成功率 <b>99.9%</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💝 为什么要饭邓滕丽？</h2>
+    <div class="reason"><span class="emoji">☀️</span><div><b>自带小太阳体质</b> —— 她一出现，阴天都能给你照晴了。</div></div>
+    <div class="reason"><span class="emoji">🎧</span><div><b>快乐净化器</b> —— 烦恼跟她聊两句，直接原地蒸发。</div></div>
+    <div class="reason"><span class="emoji">🎬</span><div><b>故事感满分</b> —— 她的日常比连续剧精彩，还天天更新。</div></div>
+    <div class="reason"><span class="emoji">🍰</span><div><b>人间清醒吃货</b> —— 知道哪家好吃，跟着她干饭不踩雷。</div></div>
+    <div class="reason"><span class="emoji">💪</span><div><b>元气补给站</b> —— 看她一眼，满血复活，今天又是元气满满的一天。</div></div>
+    <div class="reason"><span class="emoji">📸</span><div><b>摄影灵感库</b> —— 她的照片张张氛围感拉满，学构图找她就对了。</div></div>
+  </div>
+
+  <div class="card">
+    <h2>📜 关于邓滕丽，你必须知道的 5 件事</h2>
+    <ul>
+      <li>1️⃣ 她是快乐的第一生产力，见到她的人都会忍不住嘴角上扬。</li>
+      <li>2️⃣ 自带氛围感，随手一拍都是大片，粉丝们亲切称她「镜头感女王」。</li>
+      <li>3️⃣ 干饭魂燃得熊熊的，跟她吃饭永远不会纠结「吃什么」。</li>
+      <li>4️⃣ 嘴上说随便，做事超认真，反差萌直接拉满。</li>
+      <li>5️⃣ 粉丝后援会口号：<b>「滕丽一出，快乐永驻！」</b></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🖼️ 邓滕丽の心动瞬间</h2>
+    <p style="font-size: 17px; margin-bottom: 15px; color: #a06cd5;">点击可放大，建议右键保存当壁纸（她知道了会开心一整天）</p>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <div class="card">
+    <h2>📢 入会福利一览</h2>
+    <ul>
+      <li>✅ 入会即送 <b>「每天快乐一点」</b> 终身套餐</li>
+      <li>✅ 解锁后援会专属暗号：<b>「滕丽今天也好棒」</b></li>
+      <li>✅ 会员日由邓滕丽亲自云陪聊（大概吧）</li>
+      <li>✅ 入会满 7 天，自动获得<b>「饭滕丽不后悔」</b>徽章</li>
+      <li>✅ 会费只要一块小饼干，先到先得 🍪</li>
+    </ul>
+  </div>
+
+  <div class="join-box">
+    <h2>🎟️ 现在加入邓滕丽粉丝后援会</h2>
+    <p>填个名字，你就是 10086+ 分之一。<br>入会暗号：<b>「我是滕丽的快乐加一」</b></p>
+    <div>
+      <input type="text" class="join-input" id="nameInput" placeholder="输入你的昵称，如：小太阳" maxlength="12">
+    </div>
+    <button class="button-big" id="joinBtn">💖 我要入会！</button>
+    <div class="fan-counter">后援会会员已达 <b id="fanCount">10086</b> 人</div>
+  </div>
+
+  <div class="footer">
+    🎀 邓滕丽全球粉丝后援会 · 安利部荣誉出品<br>
+    本会宗旨：把邓滕丽的好，安利给全宇宙 ✨
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const gallery = document.getElementById('gallery');
+  const photoFiles = [
+    '03919537c9827d4f483b5a24d4ebca0a.jpg','160a7e69a0b022c5f7724ec4dafa23c7.jpg',
+    '203bd7d56987c837562b3efffa04b059.jpg','2e20a07ac41dd92cab1d0290f8f2d0e5.jpg',
+    '3206e325dc9dbb54c951e2f78212b9d3.jpg','3df34290bc33e375b8be1afbb5b4553d.jpg',
+    '4987e811441b92493e02cf02865e51a8.jpg','4b0842f642676ff5269a12eee5bf6260.jpg',
+    '63f415781c5058e354a88aba4e223ea1.jpg','64d80b346d056db0c75fd26b38eaa5ec.jpg',
+    '68697d26bb0fba589620f61ca91c39c9.jpg','7eff11d198f281bc81aa326a280daadb.jpg',
+    '8dcdb5ab13ce964120efd8e2b062b8a2.jpg','93d415326925adc6b59403812db5a7ce.jpg',
+    'badd8c411f80b2aa83a5cff8391f6d57.jpg','c24d18b991533f787c511405b2a3b0a4.jpg',
+    'c2f4a0a545954f80f0c172b3235143c2.jpg','c6783c931915dda8803654fcaa507395.jpg',
+    'e9f2c0271cf39e208f32c2217c4c6bc2.jpg','f06e0a921e5cc94cd1216e383f3ee658.jpg',
+    'f24d067c580af7a2a481ed0756992e9e.jpg','fb891cd614b97864e4332cba728efca3.jpg'
+  ];
+  const captions = [
+    '✨ 人间小太阳上线',
+    '💖 今日份心动',
+    '🌸 氛围感拉满',
+    '🌟 她一笑，天都晴了',
+    '🎀 镜头感女王本人',
+    '💜 美貌与可爱并存',
+    '🍑 元气满满的一天',
+    '🦋 逆光也挡不住的美',
+    '💫 像是从漫画里走出来的',
+    '✨ 越看越好看系列',
+    '💝 传说中的快乐源泉',
+    '🌞 阳光正好，她正好',
+    '🎬 每一帧都是壁纸',
+    '🥰 见到她心情自动变好',
+    '🌟 女明星日常营业',
+    '💖 收藏级心动画面',
+    '🌸 温柔本身的样子',
+    '✨ 连风都在夸她好看',
+    '🍰 甜妹本妹',
+    '🎀 会发光的人',
+    '💜 快乐感染源',
+    '💫 绝美，无需多言',
+  ];
+  photoFiles.forEach(function(f, i) {
+    const div = document.createElement('div');
+    div.className = 'photo';
+    const img = document.createElement('img');
+    img.src = 'fanclub-photos/' + f;
+    img.alt = '邓滕丽心动瞬间';
+    img.loading = 'lazy';
+    img.onerror = function() { div.remove(); };
+    img.onclick = function() { window.open(img.src); };
+    const cap = document.createElement('div');
+    cap.className = 'caption';
+    cap.textContent = captions[i % captions.length];
+    div.appendChild(img);
+    div.appendChild(cap);
+    gallery.appendChild(div);
+  });
+
+  const colors = ['#ff9ecb', '#ff6b9d', '#a06cd5', '#b8d8ff', '#ffd6e0', '#ffc8ff'];
+  const layer = document.getElementById('confetti-layer');
+  function burst(x, y) {
+    for (let i = 0; i < 50; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      const size = 6 + Math.random() * 10;
+      c.style.width = size + 'px';
+      c.style.height = size + 'px';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.left = (x + (Math.random() - 0.5) * 300) + 'px';
+      c.style.top = (y - 20) + 'px';
+      c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      c.style.animationDelay = (Math.random() * 0.4) + 's';
+      layer.appendChild(c);
+      setTimeout(() => c.remove(), 4500);
+    }
+  }
+
+  let fans = 10086;
+  const fanCount = document.getElementById('fanCount');
+  const toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  document.getElementById('joinBtn').addEventListener('click', function(e) {
+    fans++;
+    fanCount.textContent = fans.toLocaleString();
+    const input = document.getElementById('nameInput');
+    const name = input.value.trim() || '新晋会员';
+    const btn = e.target;
+    const rect = btn.getBoundingClientRect();
+    burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    showToast('🎉 欢迎 ' + name + ' 加入邓滕丽粉丝后援会！快乐值 +999');
+    input.value = '';
+    if (fans % 50 === 0) {
+      showToast('🎊 热烈庆祝！后援会会员突破 ' + fans.toLocaleString() + ' 人，邓滕丽同学开心得转圈圈！');
+    }
+  });
+</script>
+
+</body>
+</html>

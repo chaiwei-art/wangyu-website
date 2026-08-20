@@ -426,7 +426,7 @@
         <input type="text" id="blessInput" maxlength="30" placeholder="写句祝福，如：愿滕丽永远闪闪发光">
         <button class="mini-btn" id="blessBtn">寄出祝福</button>
       </div>
-      <div class="bless-count">已收集祝福 <b id="blessTotal">0</b> 条 · 你可以在「留言墙」看到大家的爱</div>
+      <div class="bless-count">🎂 邓滕丽出生于 2004.10.04，今年 <b id="ageNum">-</b> 岁 · 已收集祝福 <b id="blessTotal">0</b> 条</div>
     </div>
     <div class="panel reveal d1">
       <h3><span class="p-k">DAILY CHECK-IN</span>📅 应援打卡</h3>
@@ -669,7 +669,7 @@
   lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
 
   /* ===== countdown ===== */
-  const BIRTHDAY = { month: 3, day: 8 }; /* ← 改成邓滕丽的真实生日 */
+  const BIRTHDAY = { year: 2004, month: 10, day: 4 };
   function tickCountdown() {
     const now = new Date();
     let target = new Date(now.getFullYear(), BIRTHDAY.month - 1, BIRTHDAY.day, 0, 0, 0);
@@ -684,6 +684,14 @@
   }
   tickCountdown();
   setInterval(tickCountdown, 1000);
+  (function showAge() {
+    const now = new Date();
+    const bd = new Date(BIRTHDAY.year, BIRTHDAY.month - 1, BIRTHDAY.day);
+    let age = now.getFullYear() - BIRTHDAY.year;
+    const beforeBirthday = now < new Date(now.getFullYear(), BIRTHDAY.month - 1, BIRTHDAY.day);
+    if (beforeBirthday) age--;
+    document.getElementById('ageNum').textContent = age;
+  })();
 
   /* ===== blessings (localStorage) ===== */
   let blessings = JSON.parse(localStorage.getItem('deng-blessings') || '[]');

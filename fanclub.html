@@ -696,7 +696,9 @@
   })();
 
   /* ===== blessings (localStorage) ===== */
-  let blessings = JSON.parse(localStorage.getItem('deng-blessings') || '[]');
+  const seedBless = ['愿腾丽永远闪闪发光，快乐永驻！', '生日那天一定要吃最大块的蛋糕！', '小太阳，全宇宙都爱你！'];
+  let blessings = JSON.parse(localStorage.getItem('deng-blessings') || 'null') || seedBless.slice();
+  localStorage.setItem('deng-blessings', JSON.stringify(blessings));
   function saveBless() {
     localStorage.setItem('deng-blessings', JSON.stringify(blessings));
     document.getElementById('blessTotal').textContent = blessings.length;
@@ -800,7 +802,16 @@
   new IntersectionObserver((es, ob) => { es.forEach(e => { if (e.isIntersecting) { animateChart(); ob.unobserve(e.target); } }); }, { threshold: .4 }).observe(chart);
 
   /* ===== message wall + danmaku ===== */
-  const msgs = JSON.parse(localStorage.getItem('deng-msgs') || '[]');
+  const seedMsgs = [
+    { n: '小太阳', t: '遇见腾丽之后，我的快乐指数直接拉满！', time: '09:15' },
+    { n: '腾丽铁粉001', t: '此生不悔饭腾丽，愿她永远闪闪发光！', time: '09:20' },
+    { n: '奶茶三分糖', t: '腾丽一笑，天都晴了，入股不亏！', time: '09:26' },
+    { n: '快乐加一', t: '从今天起我也是后援会一员啦，请多指教！', time: '09:32' },
+    { n: '人间小太阳', t: '感谢每一位守护腾丽的人，你们也在发光！', time: '09:40' },
+    { n: '腾丽放心飞', t: '我们永远在，冲鸭小太阳！', time: '09:47' }
+  ];
+  let msgs = JSON.parse(localStorage.getItem('deng-msgs') || 'null') || seedMsgs.slice();
+  localStorage.setItem('deng-msgs', JSON.stringify(msgs));
   const wallList = document.getElementById('wallList');
   function renderWall() {
     wallList.innerHTML = '';

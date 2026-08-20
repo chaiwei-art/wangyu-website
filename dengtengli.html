@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邓滕丽の奇妙日常</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #ff9e7d, #ff6b9d, #c58bfa);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🍑</text></svg>') 16 24, auto;
+  }
+  .bg-emoji {
+    position: fixed;
+    font-size: 40px;
+    opacity: 0.3;
+    animation: float 6s infinite ease-in-out;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(20deg); }
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .hero {
+    background: rgba(255,255,255,0.92);
+    border-radius: 40px;
+    padding: 50px 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    margin-bottom: 30px;
+    border: 8px dashed #ff6b9d;
+    animation: wobble 5s infinite;
+  }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(1.5deg); }
+  }
+  h1 {
+    font-size: 52px;
+    background: linear-gradient(90deg, #ff4d6d, #ff9f1c, #06d6a0, #118ab2, #ff4d6d);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 4s linear infinite;
+  }
+  @keyframes rainbow { to { background-position: 200% center; } }
+  .subtitle {
+    font-size: 22px;
+    color: #d90429;
+    margin: 12px 0 20px;
+    font-weight: bold;
+  }
+  .avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff9e7d, #c58bfa);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 90px;
+    box-shadow: 0 10px 30px rgba(197,139,250,0.5);
+    animation: spin-slow 10s linear infinite;
+    user-select: none;
+  }
+  @keyframes spin-slow {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(10deg) scale(1.1); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(-10deg) scale(1.1); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .stat {
+    background: #ffe5ec;
+    border: 3px solid #ff6b9d;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-size: 18px;
+  }
+  .badges {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .badge {
+    background: #c58bfa;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 15px;
+    transform: rotate(-3deg);
+  }
+  .badge:nth-child(2n) { background: #ff6b9d; transform: rotate(3deg); }
+  .badge:nth-child(3n) { background: #06d6a0; transform: rotate(-2deg); }
+
+  .card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 30px;
+    padding: 30px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border: 4px solid white;
+    text-align: left;
+  }
+  .card h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #d90429;
+    border-bottom: 4px dotted #ff9e7d;
+    padding-bottom: 8px;
+  }
+  .card ul { list-style: none; }
+  .card li {
+    font-size: 19px;
+    padding: 10px 0;
+    border-bottom: 2px dashed #eee;
+    line-height: 1.6;
+  }
+  .card li:last-child { border-bottom: none; }
+
+  .achievement {
+    font-size: 18px;
+    background: linear-gradient(90deg, #ffe5ec, #fff3cd);
+    border-radius: 16px;
+    padding: 14px;
+    margin: 10px 0;
+    border-left: 8px solid #ff6b9d;
+  }
+
+  .button-big {
+    background: linear-gradient(90deg, #ff6b9d, #c58bfa);
+    color: white;
+    border: none;
+    font-size: 26px;
+    font-family: inherit;
+    padding: 18px 45px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+    transition: all 0.2s;
+    font-weight: bold;
+  }
+  .button-big:hover { transform: scale(1.1) rotate(-2deg); }
+  .button-big:active { transform: scale(0.9); }
+
+  .counter {
+    font-size: 20px;
+    color: #d90429;
+    margin-top: 12px;
+    font-weight: bold;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .photo {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    background: #eee;
+  }
+  .photo:hover { transform: scale(1.05) rotate(-2deg); z-index: 2; }
+  .photo img { width: 100%; height: 230px; object-fit: cover; display: block; }
+  .photo .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: #ff9e7d;
+    font-size: 16px;
+    padding: 8px;
+    text-align: center;
+  }
+  .photo:nth-child(odd) { transform: rotate(-2deg); }
+  .photo:nth-child(even) { transform: rotate(2deg); }
+  .photo:nth-child(odd):hover { transform: scale(1.05) rotate(-2deg); }
+  .photo:nth-child(even):hover { transform: scale(1.05) rotate(2deg); }
+
+  .footer {
+    margin-top: 30px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-size: 16px;
+  }
+
+  #confetti-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+  .confetti {
+    position: absolute;
+    top: -20px;
+    border-radius: 3px;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal.show { display: flex; }
+  .modal-box {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    animation: pop 0.3s;
+  }
+  @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-box h3 { font-size: 40px; color: #d90429; margin-bottom: 15px; }
+  .modal-box p { font-size: 20px; line-height: 1.8; }
+  .close-btn {
+    margin-top: 20px;
+    background: #06d6a0;
+    color: white;
+    border: none;
+    font-family: inherit;
+    font-size: 20px;
+    padding: 12px 35px;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  .close-btn:hover { transform: scale(1.05); }
+
+  .dancing-emoji {
+    font-size: 80px;
+    display: inline-block;
+    animation: dance 0.6s infinite;
+    margin: 0 10px;
+  }
+  @keyframes dance {
+    0%, 100% { transform: rotate(-15deg) translateY(0); }
+    50% { transform: rotate(15deg) translateY(-15px); }
+  }
+  .shake { animation: shake 0.4s infinite; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+</style>
+</head>
+<body>
+
+<div id="confetti-layer"></div>
+
+<script>
+  const emojis = ['🍑','🌶️','🐰','🐣','🌸','🍗','👀','🦋','🍡','🥤','🛍️','🐱'];
+  for (let i = 0; i < 18; i++) {
+    const e = document.createElement('div');
+    e.className = 'bg-emoji';
+    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    e.style.left = Math.random() * 100 + 'vw';
+    e.style.top = Math.random() * 100 + 'vh';
+    e.style.animationDelay = (Math.random() * 5) + 's';
+    e.style.fontSize = (25 + Math.random() * 40) + 'px';
+    document.body.appendChild(e);
+  }
+</script>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="avatar" id="avatar">🐰</div>
+    <h1>邓滕丽の奇妙日常</h1>
+    <div class="subtitle">🌸 全网首位「嘴上减肥」认证选手 🌸</div>
+    <div class="stats">
+      <div class="stat">🛍️ 每天剁手 <b>1</b> 次</div>
+      <div class="stat">😭 减肥计划存活 <b>0.5</b> 天</div>
+      <div class="stat">📸 自拍库存 <b>9999+</b></div>
+    </div>
+    <div class="badges">
+      <div class="badge">🏅 奶茶品鉴大师</div>
+      <div class="badge">🏅 自拍角度艺术家</div>
+      <div class="badge">🏅 追剧熬夜冠军</div>
+      <div class="badge">🏅 反向减肥第一人</div>
+      <div class="badge">🏅 快乐星球居民</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📜 邓滕丽の生平简介</h2>
+    <ul>
+      <li>出生时自带两项天赋：吃饭第一名，睡觉第一名。至今双料冠军无人撼动。</li>
+      <li>三岁时家里买零食，她准确指出最贵的那包，被誉为「零食界预言家」。</li>
+      <li>上学时每天最纠结的问题：今天穿哪件？于是从早纠结到晚，最后穿着睡衣出门。</li>
+      <li>「我就喝一小口奶茶」是她的高频谎言，说完奶茶见底，只留珍珠。</li>
+      <li>立志减肥八百次，每次都以「吃顿好的庆祝下决心」开头，以点外卖收尾。</li>
+      <li>自称拍照技术一流，其实是连拍一百张，然后从里面挑一张「最瘦的」发朋友圈。</li>
+      <li>梦想是躺着赚钱。目前躺是躺了，钱还在梦里。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🏆 邓滕丽の个人成就</h2>
+    <div class="achievement">🥇 全球首个把「减肥」二字活成吉祥物的女孩</div>
+    <div class="achievement">🥇 「再看一集就睡」连续剧王者，已成功追到第 73 季</div>
+    <div class="achievement">🥇 奶茶三分糖，是她的最后倔强（也是唯一坚持）</div>
+    <div class="achievement">🥇 自拍 200 张，选 1 张发圈，其余 199 张永不见天日</div>
+    <div class="achievement">🥇 拥有超能力：手机没电前 1% 电量能再刷 20 分钟</div>
+    <div class="achievement">🥇 购物车里商品下架速度永远快过她下单速度</div>
+  </div>
+
+  <div class="card">
+    <h2>💩 邓滕丽の每日必做清单</h2>
+    <ul>
+      <li>☑️ 起床第一件事：看手机，看 30 分钟才开始新的一天</li>
+      <li>☑️ 对着镜子试了 5 套衣服，最后穿回昨天那套</li>
+      <li>☑️ 立flag「今天一定要少吃」，然后狂炫两碗</li>
+      <li>☑️ 下午三点奶茶瘾发作，一杯续命</li>
+      <li>☑️ 晚上边追剧边哭：「这部剧太感人了，再刷一集」</li>
+      <li>☑️ 深夜刷购物车：「再看一眼，绝对不买」——下单了</li>
+      <li>☑️ 凌晨发誓明天早睡，然后继续刷手机。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🎤 邓滕丽の今日语录</h2>
+    <p id="quote" style="font-size: 22px; line-height: 1.8; text-align: center; min-height: 80px; color: #c58bfa; font-weight: bold;"></p>
+    <button class="button-big" id="quoteBtn" style="width: 100%; font-size: 20px; margin-top: 10px;">🎲 换一句名言</button>
+  </div>
+
+  <div class="card">
+    <h2>📸 邓滕丽の绝密美照集</h2>
+    <p style="font-size: 18px; margin-bottom: 15px; color: #d90429;">
+      ⚠️ 以下照片均系邓滕丽本人「精心挑选」后淘汰的存货，<br>看完请假装没看过，否则友谊小船说翻就翻。
+    </p>
+    <div class="gallery" id="gallery">
+    </div>
+  </div>
+
+  <div class="card" style="text-align: center;">
+    <h2>🍬 彩虹屁投放器</h2>
+    <div style="font-size: 30px; margin-bottom: 15px;">
+      <span class="dancing-emoji">🌸</span>
+    </div>
+    <p style="font-size: 19px; margin-bottom: 18px;">
+      点击按钮给邓滕丽疯狂吹彩虹屁，<br>
+      每吹一次，她就自信一分，膨胀两分 ✨
+    </p>
+    <button class="button-big" id="meritBtn">🌸 给邓滕丽吹彩虹屁</button>
+    <div class="counter" id="meritCount">邓滕丽当前膨胀值：0</div>
+  </div>
+
+  <div class="footer">
+    🍑 本网站由「邓滕丽彩虹屁协会」荣誉出品<br>
+    吹彩虹屁人人有责，请勿外传 🤫
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3>🫵 被发现啦！</h3>
+    <p id="modalText">邓滕丽看到这个页面了，<br>她先是害羞，然后笑出了声，<br>接着转发给了所有人 🎈</p>
+    <button class="close-btn" onclick="closeModal()">好的，原谅你了</button>
+  </div>
+</div>
+
+<script>
+  const quotes = [
+    '「我不是胖，我这是为过冬储存的可爱。」',
+    '「减肥是明天的事，今天是幸福的事。」',
+    '「三分糖是底线，珍珠是底线中的底线。」',
+    '「我不懒，我只是在充电。」',
+    '「我这不叫拖延，叫让时间更有仪式感。」',
+    '「睡懒觉是对周末最大的尊重。」',
+    '「我不是吃得多，我是胃口比较有热情。」',
+    '「自拍的意义在于：今天的我，值得被记录。」',
+    '「我是胖了点，但我脸小啊。」',
+    '「我的购物车是灵魂的收藏夹。」',
+    '「早睡是留给那些不用熬夜的人的。」',
+    '「奶茶三分糖，快乐十分满。」',
+    '「我不是嘴馋，我是对美食有信仰。」',
+    '「月亮不睡我不睡，追剧追得真陶醉。」',
+    '「我就是那个传说中『明天开始减肥』的人。」',
+  ];
+  let qi = 0;
+  const quoteEl = document.getElementById('quote');
+  const quoteBtn = document.getElementById('quoteBtn');
+  function nextQuote() {
+    quoteEl.textContent = quotes[qi % quotes.length];
+    qi++;
+    quoteEl.classList.remove('shake');
+    void quoteEl.offsetWidth;
+    quoteEl.classList.add('shake');
+  }
+  nextQuote();
+  quoteBtn.addEventListener('click', nextQuote);
+
+  let merit = 0;
+  const meritBtn = document.getElementById('meritBtn');
+  const meritCount = document.getElementById('meritCount');
+  const layer = document.getElementById('confetti-layer');
+  const colors = ['#ff6b9d', '#ff9e7d', '#06d6a0', '#c58bfa', '#ffd166', '#f06595'];
+
+  function burst(x, y) {
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      const size = 6 + Math.random() * 10;
+      c.style.width = size + 'px';
+      c.style.height = size * (0.5 + Math.random()) + 'px';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.left = (x + (Math.random() - 0.5) * 200) + 'px';
+      c.style.top = (y - 20) + 'px';
+      c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      c.style.animationDelay = (Math.random() * 0.4) + 's';
+      layer.appendChild(c);
+      setTimeout(() => c.remove(), 4500);
+    }
+  }
+
+  const avatar = document.getElementById('avatar');
+  meritBtn.addEventListener('click', function(e) {
+    merit++;
+    meritCount.textContent = '邓滕丽当前膨胀值：' + merit;
+    const btn = e.target;
+    const rect = btn.getBoundingClientRect();
+    burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+    if (merit % 10 === 0) {
+      avatar.classList.add('shake');
+      setTimeout(() => avatar.classList.remove('shake'), 600);
+      showModal('彩虹屁圆满！邓滕丽膨胀到新高度 🎉\n当前膨胀值：' + merit + '\n她开心得又点了一杯奶茶 🧋');
+    } else if (merit % 5 === 0) {
+      showModal('恭喜！邓滕丽膨胀值突破 ' + merit + '，\n她感觉今天又瘦了一点，\n决定奖励自己一顿火锅 🍲');
+    }
+    if (merit === 50) {
+      const bonus = document.createElement('div');
+      bonus.style.position = 'fixed';
+      bonus.style.bottom = '20px';
+      bonus.style.left = '50%';
+      bonus.style.transform = 'translateX(-50%)';
+      bonus.style.background = '#c58bfa';
+      bonus.style.color = 'white';
+      bonus.style.padding = '15px 25px';
+      bonus.style.borderRadius = '30px';
+      bonus.style.fontSize = '18px';
+      bonus.style.zIndex = '1000';
+      bonus.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+      bonus.textContent = '🎖️ 解锁成就：邓滕丽彩虹屁吹到天边！膨胀值 50，天下无敌！';
+      document.body.appendChild(bonus);
+      setTimeout(() => bonus.remove(), 5000);
+    }
+  });
+
+  function showModal(text) {
+    document.getElementById('modalText').innerHTML = text.replace(/\n/g, '<br>');
+    document.getElementById('modal').classList.add('show');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.title = '邓滕丽の奇妙日常 🌸';
+  document.querySelector('h1').addEventListener('mouseenter', function() {
+    document.title = '膨胀中的邓滕丽 🌸🌸';
+  });
+
+  const photoCaptions = [
+    '邓滕丽的自拍（第 173 张成品）',
+    '邓滕丽：我觉得这张能行',
+    '被抓拍的邓滕丽（她不知道）',
+    '邓滕丽 cosplay 小仙女（半成品）',
+    '邓滕丽和奶茶的深情合影',
+    '邓滕丽减肥前（同一张照片）',
+    '邓滕丽减肥后（这张也是）',
+    '邓滕丽的「职业假笑」',
+    '邓滕丽今天的 OOTD（据说挑了 40 分钟）',
+    '邓滕丽与睡衣的不解之缘',
+    '邓滕丽：我很低调，真的',
+    '邓滕丽拍完这张就删了（没删掉）',
+    '邓滕丽的自拍存货 No.999',
+    '邓滕丽元气满满的早晨（存疑）',
+    '邓滕丽视角的邓滕丽',
+    '邓滕丽：不许外传！',
+  ];
+  const gallery = document.getElementById('gallery');
+  const photoFiles = [
+    '17fbdf8c5f8ddefb2a1d1cd2cd4c7626.jpg','1b70825958d35f84b0ad1e162da95792.jpg',
+    '1c3bd4768196ad12f98e74a523017ee3.jpg','4cb6b8178bf8aacee7ca66502ff855c2.jpg',
+    '51f8d4d2a589e5e86ac1b714775976c1.jpg','658bd89bd3ff71955373e4fc25434c4c.jpg',
+    '66a6ba8f592f5777467dc7b46fb1e9c2.jpg','69fc133c75c30c2ab712f860cf5346c1.jpg',
+    '77b03fd31085fc9c9f13bb3a70f03274.jpg','aac75fa54639aa45f0e4beefe5a199a0.jpg',
+    'af2fa62055794f67f77392c08d310208.jpg','b23909ea1aa49ac32d4ef2b8cf309598.jpg',
+    'b40474a9f7c145b282c2668293412892.jpg','d4a987ee4d0ff388fcc1d0cd9ae55c66.jpg',
+    'f38d05e07d5e2c875baaa6b493043a42.jpg','ffbc7d9268e1c1ab66d1f29375ef3f19.jpg'
+  ];
+  const shuffled = photoFiles.slice().sort(() => Math.random() - 0.5);
+  shuffled.forEach(function(f, i) {
+    const div = document.createElement('div');
+    div.className = 'photo';
+    const img = document.createElement('img');
+    img.src = 'dengtengli-photos/' + f;
+    img.alt = '邓滕丽的绝密美照';
+    img.loading = 'lazy';
+    img.onerror = function() { div.remove(); };
+    const cap = document.createElement('div');
+    cap.className = 'caption';
+    cap.textContent = photoCaptions[Math.floor(Math.random() * photoCaptions.length)];
+    div.appendChild(img);
+    div.appendChild(cap);
+    gallery.appendChild(div);
+  });
+</script>
+
+</body>
+</html>

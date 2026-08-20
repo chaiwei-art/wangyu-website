@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王宇の传奇人生</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'ZCOOL KuaiLe', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #ffd166, #ff6b6b, #f06595);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🐷</text></svg>') 16 24, auto;
+  }
+  .bg-emoji {
+    position: fixed;
+    font-size: 40px;
+    opacity: 0.35;
+    animation: float 6s infinite ease-in-out;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(20deg); }
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .hero {
+    background: rgba(255,255,255,0.92);
+    border-radius: 40px;
+    padding: 50px 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    margin-bottom: 30px;
+    border: 8px dashed #ff9f1c;
+    animation: wobble 5s infinite;
+  }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(1.5deg); }
+  }
+  h1 {
+    font-size: 56px;
+    background: linear-gradient(90deg, #ff4d6d, #ff9f1c, #06d6a0, #118ab2, #ff4d6d);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 4s linear infinite;
+  }
+  @keyframes rainbow { to { background-position: 200% center; } }
+  .subtitle {
+    font-size: 22px;
+    color: #e63946;
+    margin: 12px 0 20px;
+    font-weight: bold;
+  }
+  .avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd166, #ef476f);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 90px;
+    box-shadow: 0 10px 30px rgba(239,71,111,0.5);
+    animation: spin-slow 10s linear infinite;
+    user-select: none;
+  }
+  @keyframes spin-slow {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(10deg) scale(1.1); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(-10deg) scale(1.1); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .stat {
+    background: #fff3cd;
+    border: 3px solid #ff9f1c;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-size: 18px;
+  }
+  .badges {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .badge {
+    background: #118ab2;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 15px;
+    transform: rotate(-3deg);
+  }
+  .badge:nth-child(2n) { background: #06d6a0; transform: rotate(3deg); }
+  .badge:nth-child(3n) { background: #ef476f; transform: rotate(-2deg); }
+
+  .card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 30px;
+    padding: 30px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border: 4px solid white;
+    text-align: left;
+  }
+  .card h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #ef476f;
+    border-bottom: 4px dotted #ffd166;
+    padding-bottom: 8px;
+  }
+  .card ul { list-style: none; }
+  .card li {
+    font-size: 19px;
+    padding: 10px 0;
+    border-bottom: 2px dashed #eee;
+    line-height: 1.6;
+  }
+  .card li:last-child { border-bottom: none; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .photo {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    background: #eee;
+  }
+  .photo:hover { transform: scale(1.05) rotate(-2deg); z-index: 2; }
+  .photo img { width: 100%; height: 230px; object-fit: cover; display: block; }
+  .photo .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: #ffd166;
+    font-size: 16px;
+    padding: 8px;
+    text-align: center;
+  }
+  .photo:nth-child(odd) { transform: rotate(-2deg); }
+  .photo:nth-child(even) { transform: rotate(2deg); }
+  .photo:nth-child(odd):hover { transform: scale(1.05) rotate(-2deg); }
+  .photo:nth-child(even):hover { transform: scale(1.05) rotate(2deg); }
+
+  .achievement {
+    font-size: 18px;
+    background: linear-gradient(90deg, #fff3cd, #ffe5b4);
+    border-radius: 16px;
+    padding: 14px;
+    margin: 10px 0;
+    border-left: 8px solid #ff9f1c;
+  }
+
+  .button-big {
+    background: linear-gradient(90deg, #ef476f, #ff9f1c);
+    color: white;
+    border: none;
+    font-size: 26px;
+    font-family: inherit;
+    padding: 18px 45px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(239,71,111,0.4);
+    transition: all 0.2s;
+    font-weight: bold;
+  }
+  .button-big:hover { transform: scale(1.1) rotate(-2deg); }
+  .button-big:active { transform: scale(0.9); }
+
+  .counter {
+    font-size: 20px;
+    color: #e63946;
+    margin-top: 12px;
+    font-weight: bold;
+  }
+
+  .footer {
+    margin-top: 30px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-size: 16px;
+  }
+
+  #confetti-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+  .confetti {
+    position: absolute;
+    top: -20px;
+    border-radius: 3px;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal.show { display: flex; }
+  .modal-box {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    animation: pop 0.3s;
+  }
+  @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-box h3 { font-size: 40px; color: #ef476f; margin-bottom: 15px; }
+  .modal-box p { font-size: 20px; line-height: 1.8; }
+  .close-btn {
+    margin-top: 20px;
+    background: #06d6a0;
+    color: white;
+    border: none;
+    font-family: inherit;
+    font-size: 20px;
+    padding: 12px 35px;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  .close-btn:hover { transform: scale(1.05); }
+
+  .dancing-emoji {
+    font-size: 80px;
+    display: inline-block;
+    animation: dance 0.6s infinite;
+    margin: 0 10px;
+  }
+  @keyframes dance {
+    0%, 100% { transform: rotate(-15deg) translateY(0); }
+    50% { transform: rotate(15deg) translateY(-15px); }
+  }
+  .shake { animation: shake 0.4s infinite; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+</style>
+</head>
+<body>
+
+<div id="confetti-layer"></div>
+
+<script>
+  const emojis = ['🐷','🐸','🦆','💩','😹','🐔','🥔','🍌','🦀','🐣','🎃','🧦'];
+  for (let i = 0; i < 18; i++) {
+    const e = document.createElement('div');
+    e.className = 'bg-emoji';
+    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    e.style.left = Math.random() * 100 + 'vw';
+    e.style.top = Math.random() * 100 + 'vh';
+    e.style.animationDelay = (Math.random() * 5) + 's';
+    e.style.fontSize = (25 + Math.random() * 40) + 'px';
+    document.body.appendChild(e);
+  }
+</script>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="avatar" id="avatar">🤡</div>
+    <h1>王宇の传奇人生</h1>
+    <div class="subtitle">🎉 全网首位「不靠谱」认证人类 🎉</div>
+    <div class="stats">
+      <div class="stat">😴 每日睡饱 <b>0</b> 小时</div>
+      <div class="stat">🤔 智商余额 <b>50%</b></div>
+      <div class="stat">🏆 吹牛等级 <b>MAX</b></div>
+    </div>
+    <div class="badges">
+      <div class="badge">🏅 起床困难户</div>
+      <div class="badge">🏅 鸽子王中王</div>
+      <div class="badge">🏅 追剧一级运动员</div>
+      <div class="badge">🏅 中华美食鉴定师</div>
+      <div class="badge">🏅 拖延症晚期</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📜 王宇の生平简介</h2>
+    <ul>
+      <li>出生时因为哭声太大，把医院玻璃震碎了三块，从此得名「王震天」。</li>
+      <li>三岁自学成才，学会的第一句话是「妈妈再让我看五分钟」。到现在这句话依旧是他的口头禅。</li>
+      <li>小学体育课跑步，永远是班里第一个到达终点——第一个到达树荫下睡觉的。</li>
+      <li>初中立志当学霸，坚持了三天，然后放弃了，理由是「学习太累，不适合养生」。</li>
+      <li>高中时创造的「三秒吃完饭」记录至今无人打破，被食堂封为「干饭之神」。</li>
+      <li>大学考试前夜，王宇熬夜复习了两小时，然后睡过头，错过了考试。他安慰自己：「我复习的知识都装进脑子里了，考试只是它们不想出来。」</li>
+      <li>如今，王宇最大的梦想是：每天睡到自然醒，然后数钱数到手抽筋。目前实现了一半——每天睡到自然醒。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🏆 王宇の个人成就</h2>
+    <div class="achievement">🥇 连续 365 天每天立誓要减肥，成功增重 10 斤</div>
+    <div class="achievement">🥇 全球首个在 5 分钟内回复「哈哈哈」却从不笑的人</div>
+    <div class="achievement">🥇 「下次一定」口头禅国家级非物质文化遗产传承人</div>
+    <div class="achievement">🥇 一辈子没学会游泳，但坚持声称自己是「深海恐惧症」</div>
+    <div class="achievement">🥇 记忆力惊人：能清楚记得每顿饭吃了什么，但永远忘记自己钥匙放哪</div>
+    <div class="achievement">🥇 五音不全，却坚持用歌声「治愈」了整个宿舍楼，成功率 0%</div>
+  </div>
+
+  <div class="card">
+    <h2>💩 王宇の每日必做清单</h2>
+    <ul>
+      <li>☑️ 起床时先刷手机 40 分钟，再睡 20 分钟回笼觉</li>
+      <li>☑️ 吃饭前拍照发朋友圈，吃饭时玩手机，饭凉了才开始吃</li>
+      <li>☑️ 跟朋友说「马上到」，其实还在床上</li>
+      <li>☑️ 说好减肥，晚上十点点了三份夜宵</li>
+      <li>☑️ 睡前立志「明天一定早睡」，然后熬夜刷视频到凌晨三点</li>
+      <li>☑️ 终于决定睡觉，然后想起来「再刷最后一个视频」</li>
+      <li>☑️ 天亮了。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🎤 王宇の今日语录</h2>
+    <p id="quote" style="font-size: 22px; line-height: 1.8; text-align: center; min-height: 80px; color: #118ab2; font-weight: bold;"></p>
+    <button class="button-big" id="quoteBtn" style="width: 100%; font-size: 20px; margin-top: 10px;">🎲 换一句名言</button>
+  </div>
+
+  <div class="card" style="text-align: center;">
+    <h2>🙏 功德箱</h2>
+    <div style="font-size: 30px; margin-bottom: 15px;" class="dancing-emoji">
+      <span class="dancing-emoji">🐷</span>
+    </div>
+    <p style="font-size: 19px; margin-bottom: 18px;">
+      点击按钮为傻乎乎的王宇「积累功德」，<br>
+      每点击一次，王宇在云端就多傻一分 ✨
+    </p>
+    <button class="button-big" id="meritBtn">🙏 给王宇加傻</button>
+    <div class="counter" id="meritCount">王宇当前傻值：0</div>
+  </div>
+
+  <div class="card">
+    <h2>📸 王宇の绝密照片集</h2>
+    <p style="font-size: 18px; margin-bottom: 15px; color: #e63946;">
+      ⚠️ 以下照片均拍摄于王宇不知情的情况下，<br>查看可能造成「对王宇的幻想彻底破灭」，慎点。
+    </p>
+    <div class="gallery" id="gallery">
+    </div>
+  </div>
+
+  <div class="footer">
+    💩 本网站由「王宇黑粉后援会」荣誉出品<br>
+    如有雷同，纯属你也是王宇 🤡
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3>🫵 你被王宇骗了！</h3>
+    <p id="modalText">这里什么也没有，<br>就像王宇的脑子和存款一样，<br>空空如也 🎈</p>
+    <button class="close-btn" onclick="closeModal()">好的，我服了</button>
+  </div>
+</div>
+
+<script>
+  const quotes = [
+    '「我不是懒，我只是在保存体力，以备不时之需。」',
+    '「减肥这事急不得，得等我胖够了再说。」',
+    '「我不笨，只是我的聪明在加载中……已卡机。」',
+    '「早起毁一天，赖床保平安。」',
+    '「我这是圆润，不是胖。」',
+    '「梦想还是要有的，万一哪天睡醒了呢。」',
+    '「我的人生格言是：能吃是福，能睡是仙。」',
+    '「别叫我拖延，我只是比较擅长『稍后再说』。」',
+    '「我不是路痴，只是地图和我审美不同。」',
+    '「健身卡办了就是练了，去不去是另一回事。」',
+    '「我不是社恐，我只是懒得理你。」',
+    '「今天也要做个积极向上的人——积极睡觉，向上做梦。」',
+    '「我智商不是 50，是 50 后面没跟 0 而已。」',
+    '「月亮不睡我不睡，我是熬夜小宝贝。」',
+    '「我不是胖，我是宇宙送给地球的礼物，只是包装厚了点。」',
+  ];
+  let qi = 0;
+  const quoteEl = document.getElementById('quote');
+  const quoteBtn = document.getElementById('quoteBtn');
+  function nextQuote() {
+    quoteEl.textContent = quotes[qi % quotes.length];
+    qi++;
+    quoteEl.classList.remove('shake');
+    void quoteEl.offsetWidth;
+    quoteEl.classList.add('shake');
+  }
+  nextQuote();
+  quoteBtn.addEventListener('click', nextQuote);
+
+  let merit = 0;
+  const meritBtn = document.getElementById('meritBtn');
+  const meritCount = document.getElementById('meritCount');
+  const layer = document.getElementById('confetti-layer');
+  const colors = ['#ef476f', '#ffd166', '#06d6a0', '#118ab2', '#ff9f1c', '#f06595'];
+
+  function burst(x, y) {
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      const size = 6 + Math.random() * 10;
+      c.style.width = size + 'px';
+      c.style.height = size * (0.5 + Math.random()) + 'px';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.left = (x + (Math.random() - 0.5) * 200) + 'px';
+      c.style.top = (y - 20) + 'px';
+      c.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      c.style.animationDelay = (Math.random() * 0.4) + 's';
+      layer.appendChild(c);
+      setTimeout(() => c.remove(), 4500);
+    }
+  }
+
+  const avatar = document.getElementById('avatar');
+  meritBtn.addEventListener('click', function(e) {
+    merit++;
+    meritCount.textContent = '王宇当前傻值：' + merit;
+    const btn = e.target;
+    const rect = btn.getBoundingClientRect();
+    burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+    if (merit % 10 === 0) {
+      avatar.classList.add('shake');
+      setTimeout(() => avatar.classList.remove('shake'), 600);
+      showModal('功德圆满！王宇又傻了一级 🎉\n目前傻值：' + merit + '\n他本人还不知道这件事 🤡');
+    } else if (merit % 5 === 0) {
+      showModal('恭喜！王宇傻值突破 ' + merit + '，\n他正在房间里打喷嚏，\n觉得有人在背后说他 🐷');
+    }
+    if (merit === 50) {
+      const bonus = document.createElement('div');
+      bonus.style.position = 'fixed';
+      bonus.style.bottom = '20px';
+      bonus.style.left = '50%';
+      bonus.style.transform = 'translateX(-50%)';
+      bonus.style.background = '#ef476f';
+      bonus.style.color = 'white';
+      bonus.style.padding = '15px 25px';
+      bonus.style.borderRadius = '30px';
+      bonus.style.fontSize = '18px';
+      bonus.style.zIndex = '1000';
+      bonus.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+      bonus.textContent = '🎖️ 解锁成就：王宇の终极铁粉！傻值 50，退无可退！';
+      document.body.appendChild(bonus);
+      setTimeout(() => bonus.remove(), 5000);
+    }
+  });
+
+  function showModal(text) {
+    document.getElementById('modalText').innerHTML = text.replace(/\n/g, '<br>');
+    document.getElementById('modal').classList.add('show');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.title = '王宇の传奇人生 🤡';
+  document.querySelector('h1').addEventListener('mouseenter', function() {
+    document.title = '傻乎乎的王宇 🤡🤡';
+  });
+
+  const photoCaptions = [
+    '王宇的某个「帅气瞬间」（自认为）',
+    '被抓拍的王宇，表情管理失控现场',
+    '王宇：我笑了，你们随意',
+    '据说这张是王宇的相亲照（女方已跑路）',
+    '王宇吃宵夜前最后的倔强',
+    '王宇自称的「肌肉线条」',
+    '王宇的证件照，为何如此沧桑',
+    '王宇 cosplay 失败现场',
+    '王宇努力营业的一天',
+    '王宇的眼神里写着：下午三点想睡觉',
+    '据说这是王宇最拿得出手的一张',
+    '王宇与床的深情对视',
+    '王宇招牌「假笑」演示',
+    '王宇认为自己很帅的证据（存疑）',
+    '王宇的青春，一去不复返',
+    '不明生物出没，疑似王宇',
+  ];
+  const gallery = document.getElementById('gallery');
+  const photoFiles = [
+    '109641f5326a1ca8e4d1653db2e7bdc8.jpg','158347f61e286805213c03e3073ab94e.jpg',
+    '1a69792e889fbc48a996a2b8b47ab8b3.jpg','1a83ae873be3155aca62f55d4dbd7725.jpg',
+    '1f258d2928aac52f17a3c9dbf06262ea.jpg','28590faa9c5daaa30df31c58b550346f.jpg',
+    '3ae8b330352aab5acf6d441409b3e63b.jpg','3bc1dab4839b0d42428b6ca0d7202163.jpg',
+    '5617abca251132c6f23592440681148d.jpg','56d9f42e503cda25cabe70a8f3ce59fe.jpg',
+    '596562d74e3899ad0e789321f7c94f5d.jpg','59c788125926922b2f111c4ae90b27cf.jpg',
+    '626acd21fdde78261bbbf79401f5d7a0.jpg','6964e94be33c64f2f2451700f092c4e1.jpg',
+    '72c014853f9b3dbca1990fac72f8cb9c.jpg','72e3c1f6fd702505b605e8b0dd8f9857.jpg',
+    '853f28049b6575e7cee3f047f85479a6.jpg','86165d4317f2c4c0880f77454f7025ae.jpg',
+    '89ba9a0ceee8611a6ba7662162718dcc.jpg','8e2d9532f7a88abfcceea7ebe077e8ff.jpg',
+    '9749c23045754fab9229857ba6985584.jpg','97ac6aa04a6c44d4e5afa8014692dace.jpg',
+    'b57634bd3b911c3d0a950dbc2fb1caf3.jpg','b773120374469b05f0e363728bd492a1.jpg',
+    'c2d8b1966f8a635dbdc88364681635c3.jpg','c4a7baa0af45c7fc9e36a1b836561670.jpg',
+    'edd3823a1ba05625803672e84817ab4b.jpg','eef9e9be88c49c4ac85bcf80f1798361.jpg'
+  ];
+  const shuffled = photoFiles.slice().sort(() => Math.random() - 0.5);
+  shuffled.forEach(function(f, i) {
+    const div = document.createElement('div');
+    div.className = 'photo';
+    const img = document.createElement('img');
+    img.src = 'wangyu-photos/' + f;
+    img.alt = '王宇的绝密照片';
+    img.loading = 'lazy';
+    img.onerror = function() { div.remove(); };
+    const cap = document.createElement('div');
+    cap.className = 'caption';
+    cap.textContent = photoCaptions[Math.floor(Math.random() * photoCaptions.length)];
+    div.appendChild(img);
+    div.appendChild(cap);
+    gallery.appendChild(div);
+  });
+</script>
+
+</body>
+</html>

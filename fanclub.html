@@ -286,6 +286,82 @@
   .reveal.d2 { transition-delay: .2s; }
   .reveal.d3 { transition-delay: .3s; }
 
+  /* scroll progress */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 2001;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    box-shadow: 0 0 12px var(--rose);
+  }
+
+  /* particles */
+  #particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+  .particle {
+    position: absolute; border-radius: 50%;
+    background: rgba(232,180,184,.7); box-shadow: 0 0 8px rgba(232,180,184,.9);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: .9; }
+    90% { opacity: .5; }
+    100% { transform: translateY(-105vh) translateX(40px); opacity: 0; }
+  }
+
+  /* member card */
+  .member-card {
+    margin-top: 26px; position: relative; border-radius: 22px; overflow: hidden;
+    background: linear-gradient(135deg, #1b1b2f, #2d2d44);
+    color: #fff; padding: 26px; border: 1px solid rgba(232,180,184,.35);
+    box-shadow: 0 20px 50px rgba(27,27,47,.35);
+    transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .member-card:hover { transform: rotateY(6deg) rotateX(3deg); }
+  .member-card::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(500px 200px at 90% -20%, rgba(212,175,122,.35), transparent 60%);
+  }
+  .mc-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .mc-name { font-family: var(--serif); font-size: 22px; letter-spacing: 4px; }
+  .mc-tag { font-size: 10px; letter-spacing: 4px; color: var(--rose); border: 1px solid rgba(232,180,184,.5); padding: 4px 10px; border-radius: 20px; }
+  .mc-id { font-size: 15px; letter-spacing: 3px; color: rgba(255,255,255,.55); font-family: monospace; }
+  .mc-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+  .mc-level { font-size: 13px; color: var(--gold); letter-spacing: 2px; }
+  .mc-avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--rose), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+  /* badges */
+  .badges-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+  .badge-item {
+    position: relative; width: 64px; text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1px;
+  }
+  .badge-item .b-icon {
+    width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 6px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    background: var(--card-border); color: rgba(0,0,0,.25); filter: grayscale(1); opacity: .55;
+    transition: all .3s; border: 2px solid transparent;
+  }
+  .badge-item.locked .b-icon { filter: grayscale(1); opacity: .5; }
+  .badge-item.unlocked .b-icon { filter: none; opacity: 1; background: linear-gradient(135deg, #1b1b2f, #2d2d44); border-color: var(--gold); box-shadow: 0 0 18px rgba(212,175,122,.4); }
+  .badge-item.unlocked .b-name { color: var(--gold); }
+
+  /* heart effect */
+  .float-heart {
+    position: fixed; pointer-events: none; z-index: 3001; font-size: 30px;
+    animation: heartUp 1.4s ease-out forwards;
+  }
+  @keyframes heartUp {
+    0% { transform: translate(-50%,-50%) scale(.6); opacity: 1; }
+    100% { transform: translate(-50%,-160%) scale(1.4); opacity: 0; }
+  }
+
+  /* greeting */
+  .greeting {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+    padding: 8px 18px; border-radius: 40px; color: var(--rose);
+    font-size: 13px; letter-spacing: 3px; margin-bottom: 26px; backdrop-filter: blur(6px);
+  }
+  .greeting .g-emoji { font-size: 16px; }
+
   @media (max-width: 900px) {
     .hero-inner { grid-template-columns: 1fr; gap: 40px; padding-top: 90px; text-align: center; }
     .hero-kicker { justify-content: center; }
@@ -304,13 +380,15 @@
 </head>
 <body data-theme="light">
 
+<div id="progress"></div>
+
 <div id="loader">
   <div class="loader-ring"></div>
   <div class="loader-text">LOADING · 邓腾丽</div>
 </div>
 
 <nav id="nav">
-  <a class="brand" href="#top"><span class="dot"></span>邓腾丽后援会</a>
+  <a class="brand" href="#top"><span class="dot"></span>腾光会 · 邓腾丽</a>
   <div class="nav-links">
     <a href="#about">ABOUT</a>
     <a href="#gallery">GALLERY</a>
@@ -327,12 +405,14 @@
 
 <section class="hero" id="top">
   <div class="hero-bg"></div>
+  <div id="particles"></div>
   <div class="orb one"></div>
   <div class="orb two"></div>
   <div class="hero-inner">
     <div>
-      <div class="hero-kicker">DENG TENGLI OFFICIAL FAN CLUB</div>
-      <h1><span class="en">人间小太阳 · 快乐永驻</span>邓腾丽</h1>
+      <div class="greeting"><span class="g-emoji" id="gEmoji">☀️</span><span id="gText">你好，追光者</span></div>
+      <div class="hero-kicker">TENG GLOW CLUB · OFFICIAL FAN CLUB</div>
+      <h1><span class="en">以光之名 · 守护人间小太阳</span>邓腾丽</h1>
       <p class="hero-sub">遇见邓腾丽，是这个世界给我们的温柔彩蛋。<br>她负责把光带到你面前，我们负责把爱传遍世界。</p>
       <div class="hero-actions">
         <a class="btn btn-solid" href="#join">JOIN US &nbsp;·&nbsp; 入会</a>
@@ -352,7 +432,7 @@
 
 <div class="marquee">
   <div class="marquee-track">
-    <span><b>邓腾丽全球粉丝后援会</b> · OFFICIAL WEBSITE</span>
+    <span><b>腾光会</b> · 邓腾丽全球粉丝后援会</span>
     <span>遇见她，快乐 +999</span>
     <span>腾丽一出，快乐永驻</span>
     <span>粉丝会口号 · DENG TENGLI FOREVER</span>
@@ -387,7 +467,7 @@
       <h2>她用笑容治愈世界，<br><span class="hl">我们用爱守护她。</span></h2>
       <p>邓腾丽，被粉丝们称作「人间小太阳」。她身上有种与生俱来的感染力——只要她出现，再平淡的日子也会被照亮。</p>
       <p>她是镜头前的氛围感女王，也是生活中的快乐制造机。不需要剧本，她的每一天都在认真发光。</p>
-      <div class="sign">—— 邓腾丽全球粉丝后援会</div>
+      <div class="sign">—— 腾光会 · 邓腾丽全球粉丝后援会</div>
     </div>
   </div>
 </section>
@@ -440,6 +520,7 @@
       </div>
       <div class="level-bar" style="margin-top:14px;"><i id="levelFill" style="width:0%"></i></div>
       <div class="streak" id="streakText">连续打卡 0 天 · 距下一等级还差 0 点</div>
+      <div class="badges-row" id="badgesRow"></div>
       <div class="chart-wrap">
         <canvas id="chart"></canvas>
         <div class="chart-legend"><span>近 7 天应援趋势</span><span style="color:var(--rose-deep);">● 应援值</span></div>
@@ -474,13 +555,13 @@
 <section id="timeline">
   <div class="sec-head reveal">
     <div class="sec-kicker">MEMORIES</div>
-    <h2 class="sec-title">与腾丽一起走过的时光<span class="en">OUR LITTLE MEMORIES</span></h2>
+    <h2 class="sec-title">腾光会 · 与腾丽走过的时光<span class="en">OUR LITTLE MEMORIES</span></h2>
   </div>
   <div class="timeline">
     <div class="tl-item reveal">
       <div class="date">2026 · 春</div>
-      <h4>后援会成立</h4>
-      <p>一群被她的笑容治愈的人决定做点什么，于是邓腾丽全球粉丝后援会诞生了。</p>
+      <h4>腾光会成立</h4>
+      <p>一群被她的笑容治愈的人决定做点什么，于是腾光会（邓腾丽全球粉丝后援会）诞生了。</p>
     </div>
     <div class="tl-item reveal d1">
       <div class="date">2026 · 夏</div>
@@ -521,13 +602,27 @@
       <input type="text" id="slogan" maxlength="20" placeholder="我是腾丽的快乐加一" style="width:100%;border:1px solid var(--card-border);border-radius:12px;padding:15px 18px;font-size:16px;font-family:var(--sans);margin-bottom:20px;transition:all .3s;background:var(--cream);color:var(--ink);">
       <button class="btn btn-solid" id="joinBtn" style="width:100%;justify-content:center;margin-top:6px;">✦ 正式入会</button>
       <div class="form-note" style="text-align:center;font-size:12px;color:var(--muted);margin-top:14px;letter-spacing:1px;">已加入 <span id="fanCount">10086</span>+ 位会员 · 就差你啦</div>
+      <div class="member-card" id="memberCard">
+        <div class="mc-head">
+          <div class="mc-name">腾光会 · 会员证</div>
+          <div class="mc-tag">TENG GLOW</div>
+        </div>
+        <div class="mc-id" id="mcId">NO. TL-000000</div>
+        <div class="mc-row">
+          <div>
+            <div style="font-size:16px;letter-spacing:2px;" id="mcNick">待入会</div>
+            <div class="mc-level" id="mcLevel">✦ 应援新人</div>
+          </div>
+          <div class="mc-avatar">🌸</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <footer id="contact">
-  <div class="f-logo">邓腾丽<span class="dot"></span>全球粉丝后援会</div>
-  <p style="font-size:13px;letter-spacing:4px;color:var(--rose);">DENG TENGLI OFFICIAL FAN CLUB</p>
+  <div class="f-logo">腾光会<span class="dot"></span>邓腾丽全球粉丝后援会</div>
+  <p style="font-size:13px;letter-spacing:4px;color:var(--rose);">TENG GLOW CLUB · OFFICIAL FAN CLUB</p>
   <div class="f-links">
     <a href="#about">关于她</a>
     <a href="#gallery">心动瞬间</a>
@@ -536,7 +631,7 @@
     <a href="#join">加入我们</a>
     <a href="#top">回到顶部</a>
   </div>
-  <div class="f-copy">© 2026 邓腾丽全球粉丝后援会 · 安利部荣誉出品 · 本会宗旨：把她的好，安利给全宇宙</div>
+  <div class="f-copy">© 2026 腾光会 · 邓腾丽全球粉丝后援会 · 安利部荣誉出品 · 以光之名，守护人间小太阳</div>
 </footer>
 
 <div id="lightbox">
@@ -569,6 +664,49 @@
   /* ===== nav scroll ===== */
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+  /* ===== scroll progress ===== */
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    progress.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  });
+
+  /* ===== greeting ===== */
+  (function greeting() {
+    const h = new Date().getHours();
+    let g, em;
+    if (h < 5) { g = '夜深了，追光者辛苦了'; em = '🌙'; }
+    else if (h < 11) { g = '早上好，追光者'; em = '🌅'; }
+    else if (h < 14) { g = '中午好，记得好好吃饭'; em = '☀️'; }
+    else if (h < 18) { g = '下午好，快乐也要续航'; em = '🍵'; }
+    else { g = '晚上好，一起为腾丽点灯'; em = '🌇'; }
+    document.getElementById('gText').textContent = g;
+    document.getElementById('gEmoji').textContent = em;
+  })();
+
+  /* ===== particles ===== */
+  (function particles() {
+    const box = document.getElementById('particles');
+    for (let i = 0; i < 24; i++) {
+      const p = document.createElement('span');
+      p.className = 'particle';
+      const s = 2 + Math.random() * 5;
+      p.style.cssText = 'left:' + (Math.random() * 100) + '%;bottom:-10px;width:' + s + 'px;height:' + s + 'px;animation-duration:' + (6 + Math.random() * 8) + 's;animation-delay:' + (Math.random() * 8) + 's;';
+      box.appendChild(p);
+    }
+  })();
+
+  /* ===== double-click hearts ===== */
+  document.addEventListener('dblclick', (e) => {
+    const heart = document.createElement('div');
+    heart.className = 'float-heart';
+    heart.textContent = '💖';
+    heart.style.left = e.clientX + 'px';
+    heart.style.top = e.clientY + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1500);
+  });
 
   /* ===== reveal ===== */
   const io = new IntersectionObserver((entries) => {
@@ -730,6 +868,32 @@
     const cur = LEVELS[idx], next = LEVELS[idx + 1];
     return { name: cur.name, pct: next ? Math.min(100, Math.round((p - cur.need) / (next.need - cur.need) * 100)) : 100, remain: next ? next.need - p : 0 };
   }
+  function renderBadges() {
+    const defs = [
+      { icon: '🌸', name: '初遇之光', need: 1 },
+      { icon: '⭐', name: '七日之光', need: 70 },
+      { icon: '🎖️', name: '满月光辉', need: 300 },
+      { icon: '👑', name: '太阳骑士', need: 1000 },
+      { icon: '💎', name: '永恒之光', need: 3000 }
+    ];
+    const row = document.getElementById('badgesRow');
+    row.innerHTML = '';
+    defs.forEach(d => {
+      const unlocked = points >= d.need;
+      const el = document.createElement('div');
+      el.className = 'badge-item ' + (unlocked ? 'unlocked' : 'locked');
+      el.innerHTML = '<div class="b-icon">' + d.icon + '</div><div class="b-name">' + d.name + '</div><div style="font-size:9px;">' + (unlocked ? '已点亮' : d.need + ' 应援值') + '</div>';
+      row.appendChild(el);
+    });
+  }
+  function renderMemberCard() {
+    const li = levelInfo(points);
+    const nick = localStorage.getItem('deng-name') || '待入会';
+    const id = localStorage.getItem('deng-id') || '';
+    document.getElementById('mcNick').textContent = nick;
+    document.getElementById('mcLevel').textContent = '✦ ' + li.name;
+    document.getElementById('mcId').textContent = 'NO. TL-' + (id || '未领取');
+  }
   function renderCheckin() {
     const li = levelInfo(points);
     document.getElementById('points').textContent = points;
@@ -741,6 +905,8 @@
     document.getElementById('checkBtn').textContent = done ? '✓ 今日已打卡' : '✓ 今日打卡';
     document.getElementById('checkBtn').disabled = done;
     document.getElementById('streakText').textContent = '连续打卡 ' + streak + ' 天' + (li.remain ? ' · 距下一等级还差 ' + li.remain + ' 点' : ' · 已到最高等级！');
+    renderBadges();
+    renderMemberCard();
   }
   document.getElementById('checkBtn').addEventListener('click', () => {
     const today = new Date().toDateString();
@@ -899,14 +1065,20 @@
   const fanEl = document.getElementById('fanCount');
   document.getElementById('joinBtn').addEventListener('click', function() {
     const name = document.getElementById('name').value.trim() || '新晋会员';
+    if (!localStorage.getItem('deng-name')) localStorage.setItem('deng-name', name);
+    if (!localStorage.getItem('deng-id')) {
+      const id = 'TL-' + String(Math.floor(100000 + Math.random() * 900000));
+      localStorage.setItem('deng-id', id);
+    }
     localStorage.setItem('deng-name', name);
     fans++;
     fanEl.textContent = fans.toLocaleString();
+    renderMemberCard();
     const btn = this;
     btn.textContent = '✓ 欢迎 ' + name + ' 入会！';
     btn.style.background = 'linear-gradient(135deg, #06b06a, #3fbf7f)';
     setTimeout(() => { btn.textContent = '✦ 正式入会'; btn.style.background = ''; }, 2200);
-    spawnDanmaku('🎉 欢迎 ' + name + ' 加入后援会！');
+    spawnDanmaku('🎉 欢迎 ' + name + ' 加入腾光会！');
     confettiBurst(btn);
   });
 
